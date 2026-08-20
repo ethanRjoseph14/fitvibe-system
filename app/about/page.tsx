@@ -108,8 +108,18 @@ export default function AboutPage() {
               href={`/coaches/${founder.slug}`}
               className="flex flex-col sm:flex-row items-center sm:items-start gap-6 rounded-2xl border border-tan/60 p-6 hover:border-evergreen transition-colors"
             >
-              <div className="shrink-0 w-28 h-28 rounded-full bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-2">
-                [ photo ]
+              <div className="relative shrink-0 w-28 h-28 rounded-full overflow-hidden bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-2">
+                {founder.photo ? (
+                  <Image
+                    src={founder.photo}
+                    alt={founder.name}
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                  />
+                ) : (
+                  "[ photo ]"
+                )}
               </div>
               <div className="flex-1 min-w-0 text-center">
                 <h3 className="text-xl mb-0.5">{founder.name}</h3>
