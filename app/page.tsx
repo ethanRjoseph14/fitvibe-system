@@ -71,10 +71,11 @@ export default function Home() {
 
       {/* Founding member CTA */}
       <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <h2 className="font-display text-3xl mb-4">20 Founding Member slots. That&apos;s all.</h2>
+        <h2 className="font-display text-3xl mb-4">Become a Founding Member.</h2>
         <p className="text-charcoal/70 max-w-xl mx-auto mb-8">
-          Lock in the Forever Pass rate for life before we soft-launch on 14 October 2026.
-          Enrollment closes 30 September.
+          Lock in a rate below our standing Forever Pass price, unlimited across Spark &amp;
+          Forge, for 6 or 12 months. This offer closes before our Soft Launch trial begins
+          on 14 October 2026.
         </p>
         <Link
           href="/programmes"
