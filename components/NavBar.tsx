@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/the-foreva-method", label: "The ForEva Method" },
+  { href: "/about", label: "About" },
+  { href: "/the-foreva-method", label: "ForEva Method" },
+  { href: "/coaches", label: "Coaches" },
   { href: "/programmes", label: "Programmes" },
   { href: "/book", label: "Book a Class" },
   { href: "/member", label: "Member Portal" },
@@ -14,7 +16,7 @@ export default function NavBar() {
         <Link href="/" className="font-display text-2xl text-charcoal tracking-wide">
           Fit<span className="text-vitality-orange">vibe</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-medium">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className="text-charcoal hover:text-vitality-orange transition-colors">
               {l.label}
