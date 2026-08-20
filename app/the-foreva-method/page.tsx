@@ -21,7 +21,7 @@ export default function ForEvaMethodPage() {
           train around. From there, we prescribe a programme, not just a workout.
         </p>
 
-        <div className="rounded-2xl bg-off-white border border-tan/60 p-6 mb-10">
+        <div className="rounded-2xl bg-off-white border border-tan/60 p-6 mb-10 text-center">
           <h2 className="text-xl text-evergreen mb-2">Who it&apos;s for</h2>
           <ul className="space-y-2 text-charcoal/80">
             <li>Senior adults (50–70+) who want safe, effective strength and mobility training in a space that understands their body.</li>
