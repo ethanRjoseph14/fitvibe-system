@@ -21,7 +21,7 @@ function creditsLabel(p: Plan) {
 function PlanCard({ p }: { p: Plan }) {
   return (
     <div
-      className={`rounded-2xl border p-6 bg-off-white flex flex-col ${
+      className={`rounded-2xl border p-6 bg-off-white flex flex-col text-center ${
         p.isFoundingMemberOffer ? "border-vitality-orange border-2" : "border-tan/60"
       }`}
     >
@@ -73,8 +73,8 @@ export default async function ProgrammesPage() {
 
         {sparkPackages.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-2xl text-evergreen mb-1">Spark Credit Packages</h2>
-            <p className="font-caption text-sm text-charcoal/60 mb-6">Small-group mobility &amp; balance, max 5 pax.</p>
+            <h2 className="text-2xl text-evergreen mb-1 text-center">Spark Credit Packages</h2>
+            <p className="font-caption text-sm text-charcoal/60 mb-6 text-center">Small-group mobility &amp; balance, max 5 pax.</p>
             <div className="grid md:grid-cols-3 gap-6">
               {sparkPackages.map((p) => (
                 <PlanCard key={p.id} p={p} />
@@ -85,8 +85,8 @@ export default async function ProgrammesPage() {
 
         {forgePackages.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-2xl text-evergreen mb-1">Forge Credit Packages</h2>
-            <p className="font-caption text-sm text-charcoal/60 mb-6">Small-group strength, max 9 pax (provisional).</p>
+            <h2 className="text-2xl text-evergreen mb-1 text-center">Forge Credit Packages</h2>
+            <p className="font-caption text-sm text-charcoal/60 mb-6 text-center">Small-group strength, max 9 pax (provisional).</p>
             <div className="grid md:grid-cols-3 gap-6">
               {forgePackages.map((p) => (
                 <PlanCard key={p.id} p={p} />
@@ -97,8 +97,8 @@ export default async function ProgrammesPage() {
 
         {walkIns.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-2xl text-evergreen mb-1">Sunday Walk-In</h2>
-            <p className="font-caption text-sm text-charcoal/60 mb-6">
+            <h2 className="text-2xl text-evergreen mb-1 text-center">Sunday Walk-In</h2>
+            <p className="font-caption text-sm text-charcoal/60 mb-6 text-center">
               No commitment, pay per class. Sundays only — every other day of the week is
               credit-pack or pass only.
             </p>
@@ -112,8 +112,8 @@ export default async function ProgrammesPage() {
 
         {passes.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-2xl text-evergreen mb-1">Unlimited Passes</h2>
-            <p className="font-caption text-sm text-charcoal/60 mb-6">
+            <h2 className="text-2xl text-evergreen mb-1 text-center">Unlimited Passes</h2>
+            <p className="font-caption text-sm text-charcoal/60 mb-6 text-center">
               Unlimited access across both Spark &amp; Forge. To keep classes fair, pass
               holders are capped at 60% of any class&apos;s seats — the rest are always
               held for paying walk-in/credit members.
@@ -128,8 +128,8 @@ export default async function ProgrammesPage() {
 
         {sjgc.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-2xl text-evergreen mb-1">SJGC Members</h2>
-            <p className="font-caption text-sm text-charcoal/60 mb-6">
+            <h2 className="text-2xl text-evergreen mb-1 text-center">SJGC Members</h2>
+            <p className="font-caption text-sm text-charcoal/60 mb-6 text-center">
               For our Strong Beyond 50 community at SJGC. Already have a Forge — Starter
               pack? Your SJGC partner rate is already built into that price — no separate
               sign-up needed.
