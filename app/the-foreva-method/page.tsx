@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 
@@ -15,6 +16,17 @@ export default function ForEvaMethodPage() {
           </p>
         </div>
 
+        <div className="relative rounded-2xl overflow-hidden border border-tan/60 aspect-[16/8] mb-10">
+          <Image
+            src="/images/foreva-banner.webp"
+            alt="A member working through a resistance band exercise with purposeful form"
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
+
         <p className="text-charcoal/70 mb-6">
           Every member starts with a ForEva Assessment — a structured, clinically-informed
           evaluation of strength, mobility, balance, and any chronic conditions we need to
@@ -22,6 +34,15 @@ export default function ForEvaMethodPage() {
         </p>
 
         <div className="rounded-2xl bg-off-white border border-tan/60 p-6 mb-10 text-center">
+          <div className="relative w-24 h-24 rounded-full overflow-hidden border border-tan/60 mx-auto mb-4">
+            <Image
+              src="/images/foreva-whoitsfor.webp"
+              alt="Close-up of hands gripping resistance band handles"
+              fill
+              sizes="96px"
+              className="object-cover"
+            />
+          </div>
           <h2 className="text-xl text-evergreen mb-2">Who it&apos;s for</h2>
           <ul className="space-y-2 text-charcoal/80">
             <li>Senior adults (50–70+) who want safe, effective strength and mobility training in a space that understands their body.</li>
