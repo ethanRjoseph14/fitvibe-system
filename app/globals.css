@@ -1,15 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
-/* Fitvibe Brand Identity & Creative Guidelines v1.0 — color values below are
-   taken verbatim from Fitvibe_Brand_Identity_Guidelines_v2.docx (§03 Color System). */
+/* Fitvibe Brand Identity — 20 Aug 2026 update. Vitality Orange stays the
+   original bright brand orange per Ethan's call. Evergreen was re-sampled
+   from photos of the actual built-out space (the deep forest-green painted
+   box beams) to match the real room. Sage/Warm Beige/Tan were also
+   re-sampled from the same photos (warm cream walls, wood tones) to stay
+   cohesive with the new Evergreen. */
 :root {
-  --color-vitality-orange: #e87722;
-  --color-warm-amber: #f5a623;
-  --color-evergreen: #3a7d44;
-  --color-sage: #6aaf72;
-  --color-warm-beige: #f2ead3;
-  --color-tan: #d9cbaa;
+  --color-vitality-orange: #e87722; /* original bright brand orange (kept) */
+  --color-warm-amber: #f5a623; /* original bright amber — paired hover tone for the bright orange */
+  --color-evergreen: #3f5737; /* deep forest-green beam, sampled from your space */
+  --color-sage: #7c9068; /* soft muted green, lighter family member */
+  --color-warm-beige: #efe2c7; /* warm cream wall/ceiling */
+  --color-tan: #c7ad84; /* warm wood tones (door, racks) */
   --color-charcoal: #2c2c2c;
   --color-off-white: #ffffff;
   --color-light-warm-gray: #f7f5f0;
