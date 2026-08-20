@@ -59,15 +59,17 @@ export default async function ProgrammesPage() {
     <div className="min-h-screen bg-warm-beige text-charcoal">
       <NavBar />
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h1 className="font-display text-4xl mb-3">Programmes &amp; Pricing</h1>
-        <p className="text-charcoal/70 max-w-2xl mb-12">
-          Credit-based packs, same logic as Punchpass: buy a pack, book classes with your
-          credits, top up when you run low. Spark is small-group mobility &amp; balance
-          (max 5 pax). Forge is small-group strength (max 9 pax, provisional — the true
-          cap will be confirmed once we&apos;re open and running real classes). Every
-          package includes access to our Beginner class — the assessment-guided starting
-          point for anyone new to Fitvibe, no separate purchase needed.
-        </p>
+        <div className="max-w-2xl mx-auto text-center mb-12">
+          <h1 className="font-display text-4xl mb-3">Programmes &amp; Pricing</h1>
+          <p className="text-charcoal/70">
+            Credit-based packs, same logic as Punchpass: buy a pack, book classes with your
+            credits, top up when you run low. Spark is small-group mobility &amp; balance
+            (max 5 pax). Forge is small-group strength (max 9 pax, provisional — the true
+            cap will be confirmed once we&apos;re open and running real classes). Every
+            package includes access to our Beginner class — the assessment-guided starting
+            point for anyone new to Fitvibe, no separate purchase needed.
+          </p>
+        </div>
 
         {sparkPackages.length > 0 && (
           <div className="mb-14">
