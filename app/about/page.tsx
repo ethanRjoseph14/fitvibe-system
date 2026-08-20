@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import Wordmark from "@/components/Wordmark";
@@ -23,6 +24,20 @@ export default function AboutPage() {
           and working professionals managing chronic conditions — people who deserve
           training designed around their body, not adapted from someone else&apos;s.
         </p>
+      </section>
+
+      {/* Banner */}
+      <section className="mx-auto max-w-5xl px-6 pb-14">
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 aspect-[21/9]">
+          <Image
+            src="/images/about-banner.webp"
+            alt="A coach helping a member stretch with a resistance band"
+            fill
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
       </section>
 
       {/* Vision & Mission */}
@@ -68,9 +83,16 @@ export default function AboutPage() {
               layout ready to receive it, photos included.]
             </p>
           </div>
-          <div className="font-caption w-full aspect-[4/5] rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
-            [ Photo — Ethan or the space, see Brand Guidelines §08, Photography Asset
-            Library ]
+          <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-sage/40">
+            {/* Placeholder stock photo of a studio space — swap for a real photo of Ethan
+                or the actual Fitvibe space once available (see Brand Guidelines §08). */}
+            <Image
+              src="/images/about-story-space.webp"
+              alt="A sunlit studio space with resistance bands hanging by the window"
+              fill
+              sizes="260px"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
