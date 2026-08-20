@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/* Fitvibe Brand Identity & Creative Guidelines v1.0 — color values below are
+   taken verbatim from Fitvibe_Brand_Identity_Guidelines_v2.docx (§03 Color System). */
+:root {
+  --color-vitality-orange: #e87722;
+  --color-warm-amber: #f5a623;
+  --color-evergreen: #3a7d44;
+  --color-sage: #6aaf72;
+  --color-warm-beige: #f2ead3;
+  --color-tan: #d9cbaa;
+  --color-charcoal: #2c2c2c;
+  --color-off-white: #ffffff;
+  --color-light-warm-gray: #f7f5f0;
+  --color-mid-gray: #9e9e9e;
+
+  --background: var(--color-warm-beige);
+  --foreground: var(--color-charcoal);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-vitality-orange: var(--color-vitality-orange);
+  --color-warm-amber: var(--color-warm-amber);
+  --color-evergreen: var(--color-evergreen);
+  --color-sage: var(--color-sage);
+  --color-warm-beige: var(--color-warm-beige);
+  --color-tan: var(--color-tan);
+  --color-charcoal: var(--color-charcoal);
+  --color-off-white: var(--color-off-white);
+  --color-light-warm-gray: var(--color-light-warm-gray);
+  --color-mid-gray: var(--color-mid-gray);
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.6; /* accessibility rule: 1.6 minimum for 50+ readers */
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), serif;
+}
