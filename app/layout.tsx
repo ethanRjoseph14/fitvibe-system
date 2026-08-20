@@ -10,9 +10,9 @@ import "./globals.css";
 // next/font/local with self-hosted font files for better performance.
 
 export const metadata: Metadata = {
-  title: "Fitvibe — Getting Old With A Stronger Muscle",
+  title: "Fitvibe — Getting Fit Everyday With A Stronger Muscle",
   description:
-    "Fitvibe is a specialist movement centre for adults 50+ and those managing chronic conditions, built around The ForEva Method. Subang Jaya.",
+    "Fitvibe is a specialist movement centre for adults 40+ and those managing chronic conditions, built around The ForEva Method. Subang Jaya.",
 };
 
 export default function RootLayout({
