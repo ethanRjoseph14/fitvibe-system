@@ -64,7 +64,9 @@ export default async function ProgrammesPage() {
           Credit-based packs, same logic as Punchpass: buy a pack, book classes with your
           credits, top up when you run low. Spark is small-group mobility &amp; balance
           (max 5 pax). Forge is small-group strength (max 9 pax, provisional — the true
-          cap will be confirmed once we&apos;re open and running real classes).
+          cap will be confirmed once we&apos;re open and running real classes). Every
+          package includes access to our Beginner class — the assessment-guided starting
+          point for anyone new to Fitvibe, no separate purchase needed.
         </p>
 
         {sparkPackages.length > 0 && (
