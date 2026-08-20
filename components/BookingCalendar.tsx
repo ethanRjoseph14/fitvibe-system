@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatTimeRange, isoDateMY, getMYDateParts, formatMonthYear } from "@/lib/tz";
+import { findCoachByInstructorName } from "@/lib/coaches";
 
 export type CalendarSession = {
   id: string;
@@ -212,6 +214,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                 {selectedSessions.map((s) => {
                   const kind = kindOf(s.title);
                   const style = KIND_STYLES[kind];
+                  const coach = findCoachByInstructorName(s.instructor);
                   return (
                     <div
                       key={s.id}
@@ -226,7 +229,22 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                         </div>
                         <p className="text-sm text-mid-gray">
                           {formatTimeRange(new Date(s.startTime), new Date(s.endTime))} · Up to{" "}
-                          {s.capacity} people{s.instructor ? ` · with ${s.instructor}` : ""}
+                          {s.capacity} people
+                          {s.instructor ? (
+                            <>
+                              {" · with "}
+                              {coach ? (
+                                <Link
+                                  href={`/coaches/${coach.slug}`}
+                                  className="font-semibold text-evergreen hover:underline"
+                                >
+                                  {s.instructor}
+                                </Link>
+                              ) : (
+                                s.instructor
+                              )}
+                            </>
+                          ) : null}
                         </p>
                       </div>
                       <a
