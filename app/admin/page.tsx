@@ -3,7 +3,7 @@ import { db } from "@/db/client";
 import { members, payments, accessLogs, creditPacks, membershipPlans } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { format } from "date-fns";
+import { formatDateTime } from "@/lib/tz";
 
 export const dynamic = "force-dynamic";
 
@@ -81,7 +81,7 @@ export default async function AdminPage() {
                 <input type="hidden" name="paymentId" value={p.id} />
                 <div className="text-sm">
                   <p className="font-semibold">RM {p.amountRM} · {p.method}</p>
-                  <p className="text-mid-gray">{p.referenceNote} — submitted {format(new Date(p.submittedAt), "d MMM, h:mm a")}</p>
+                  <p className="text-mid-gray">{p.referenceNote} — submitted {formatDateTime(new Date(p.submittedAt))}</p>
                 </div>
                 <div className="flex gap-2 items-center">
                   <select name="membershipPlanId" className="rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige">
@@ -148,7 +148,7 @@ export default async function AdminPage() {
                   </span>{" "}
                   ({log.reason})
                 </span>
-                <span className="text-mid-gray">{format(new Date(log.timestamp), "d MMM, h:mm a")}</span>
+                <span className="text-mid-gray">{formatDateTime(new Date(log.timestamp))}</span>
               </div>
             ))}
           </div>
