@@ -38,3 +38,29 @@ export function formatDateTime(date: Date): string {
     hour12: true,
   });
 }
+
+/** e.g. "8:00 AM – 9:15 AM" */
+export function formatTimeRange(start: Date, end: Date): string {
+  return `${formatClassTime(start)} – ${formatClassTime(end)}`;
+}
+
+/** e.g. "October 2026" */
+export function formatMonthYear(date: Date): string {
+  return formatMY(date, { month: "long", year: "numeric" });
+}
+
+/** "YYYY-MM-DD" in Malaysia time — safe to use as a calendar-day grouping key. */
+export function isoDateMY(date: Date): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+}
+
+/** { year, month (1-12), day } for `date`, as seen in Malaysia time. */
+export function getMYDateParts(date: Date): { year: number; month: number; day: number } {
+  const [year, month, day] = isoDateMY(date).split("-").map(Number);
+  return { year, month, day };
+}
