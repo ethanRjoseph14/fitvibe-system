@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Caprasimo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Raleway:ital,wght@0,500;0,600;0,800;1,200&family=Sometype+Mono:wght@400;500;700&family=Liter&display=swap");
 @import "tailwindcss";
 
 /* Fitvibe Brand Identity — 20 Aug 2026 update. Vitality Orange stays the
@@ -38,21 +38,83 @@
   --color-light-warm-gray: var(--color-light-warm-gray);
   --color-mid-gray: var(--color-mid-gray);
 
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Poppins", system-ui, sans-serif;
-  /* Wordmark font — reserved for the "Fitvibe" logo lockup only (nav logo,
-     hero brand mark). Not the general heading font. See Brand Guidelines
-     §05: Fit = Evergreen, vibe = Vitality Orange, always in Caprasimo. */
-  --font-wordmark: "Caprasimo", "Playfair Display", serif;
+  /* Fitvibe Typography System — 20 Aug 2026 update, per Ethan's spec.
+     Four families, mapped to nine roles:
+       Title / Subtitle / Logo  -> Caprasimo
+       Heading (ExtraBold) / Subheading (SemiBold) / Section Header (Medium)
+         / Quote (ExtraLight Italic)  -> Raleway
+       Body                      -> Sometype Mono
+       Caption                   -> Liter
+     Role -> weight/style is baked into each .font-* class below (not just
+     family), so applying a role class always gets the correct weight. */
+  --font-caprasimo: "Caprasimo", "Playfair Display", serif;
+  --font-raleway: "Raleway", sans-serif;
+  --font-sometype-mono: "Sometype Mono", ui-monospace, monospace;
+  --font-liter: "Liter", sans-serif;
+
+  --font-title: var(--font-caprasimo);
+  --font-subtitle: var(--font-caprasimo);
+  /* Wordmark font — the "Fitvibe" logo lockup (nav logo, hero brand mark).
+     See Brand Guidelines §04/§05: Fit = Evergreen, vibe = Vitality Orange,
+     always in Caprasimo. */
+  --font-wordmark: var(--font-caprasimo);
+  --font-heading: var(--font-raleway);
+  --font-subheading: var(--font-raleway);
+  --font-section-header: var(--font-raleway);
+  --font-quote: var(--font-raleway);
+  --font-body: var(--font-sometype-mono);
+  --font-caption: var(--font-liter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), monospace;
   line-height: 1.6; /* accessibility rule: 1.6 minimum for 50+ readers */
 }
 
-h1, h2, h3, .font-display {
-  font-family: var(--font-display), serif;
+/* Element defaults — most headings need no explicit class because the tag
+   itself now carries the right role. */
+h1 {
+  font-family: var(--font-title), serif;
+}
+h2 {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 800;
+}
+h3 {
+  font-family: var(--font-subheading), sans-serif;
+  font-weight: 600;
+}
+blockquote {
+  font-family: var(--font-quote), sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* Explicit role classes — for text that isn't a heading tag but still
+   needs a specific role (eyebrow labels, pull-quotes, fine print, etc). */
+.font-title,
+.font-subtitle {
+  font-family: var(--font-title), serif;
+}
+.font-heading {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 800;
+}
+.font-subheading {
+  font-family: var(--font-subheading), sans-serif;
+  font-weight: 600;
+}
+.font-section-header {
+  font-family: var(--font-section-header), sans-serif;
+  font-weight: 500;
+}
+.font-quote {
+  font-family: var(--font-quote), sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+.font-caption {
+  font-family: var(--font-caption), sans-serif;
 }
