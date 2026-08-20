@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
+import Wordmark from "@/components/Wordmark";
 import { coaches } from "@/lib/coaches";
 
 export default function AboutPage() {
@@ -14,7 +15,9 @@ export default function AboutPage() {
         <p className="text-sm font-semibold tracking-widest text-evergreen uppercase mb-4">
           Subang Jaya · Specialist Movement Centre
         </p>
-        <h1 className="font-display text-5xl mb-6">Fitvibe</h1>
+        <h1 className="text-5xl mb-6">
+          <Wordmark />
+        </h1>
         <p className="text-lg text-charcoal/80">
           Fitvibe is not a gym. It&apos;s a specialist movement centre built for adults 50+
           and working professionals managing chronic conditions — people who deserve
