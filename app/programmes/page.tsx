@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import { db } from "@/db/client";
 import { membershipPlans } from "@/db/schema";
@@ -69,6 +70,17 @@ export default async function ProgrammesPage() {
             package includes access to our Beginner class — the assessment-guided starting
             point for anyone new to Fitvibe, no separate purchase needed.
           </p>
+        </div>
+
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 h-64 sm:h-80 max-w-md mx-auto mb-14">
+          <Image
+            src="/images/programmes-accent.webp"
+            alt="A member pausing thoughtfully after a training session"
+            fill
+            sizes="(min-width: 640px) 448px, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
 
         {sparkPackages.length > 0 && (
