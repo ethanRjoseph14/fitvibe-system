@@ -25,8 +25,8 @@ function kindOf(title: string): Kind {
 const KIND_STYLES: Record<Kind, { label: string; dot: string; badge: string }> = {
   beginner: {
     label: "Beginner",
-    dot: "bg-warm-amber",
-    badge: "bg-warm-amber/15 text-warm-amber border-warm-amber/40",
+    dot: "bg-tan",
+    badge: "bg-tan/25 text-charcoal border-tan/60",
   },
   spark: {
     label: "Spark",
@@ -110,36 +110,36 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
   const selectedSessions = selectedKey ? byDate.get(selectedKey) ?? [] : [];
 
   return (
-    <div className="grid md:grid-cols-[minmax(0,420px)_1fr] gap-8 items-start">
-      {/* Calendar */}
-      <div className="rounded-2xl bg-off-white border border-tan/60 p-5">
-        <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col gap-10">
+      {/* Calendar — bigger, full-width */}
+      <div className="rounded-2xl bg-off-white border border-tan/60 p-6 sm:p-8 max-w-3xl w-full mx-auto">
+        <div className="flex items-center justify-between mb-6">
           <button
             type="button"
             onClick={() => shiftMonth(-1)}
             aria-label="Previous month"
-            className="w-10 h-10 rounded-full border border-tan/60 hover:border-evergreen hover:text-evergreen flex items-center justify-center text-lg"
+            className="w-11 h-11 rounded-full border border-tan/60 hover:border-evergreen hover:text-evergreen flex items-center justify-center text-xl"
           >
             ‹
           </button>
-          <p className="font-display text-xl">{monthLabel}</p>
+          <p className="font-display text-2xl sm:text-3xl">{monthLabel}</p>
           <button
             type="button"
             onClick={() => shiftMonth(1)}
             aria-label="Next month"
-            className="w-10 h-10 rounded-full border border-tan/60 hover:border-evergreen hover:text-evergreen flex items-center justify-center text-lg"
+            className="w-11 h-11 rounded-full border border-tan/60 hover:border-evergreen hover:text-evergreen flex items-center justify-center text-xl"
           >
             ›
           </button>
         </div>
 
-        <div className="grid grid-cols-7 gap-1 mb-1 text-center text-xs font-semibold text-mid-gray">
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2 mb-2 text-center text-sm font-semibold text-mid-gray">
           {WEEKDAY_LABELS.map((w, i) => (
             <div key={i}>{w}</div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
           {cells.map((cell, i) => {
             if (!cell) return <div key={`empty-${i}`} />;
             const daySessions = byDate.get(cell.key) ?? [];
@@ -154,9 +154,9 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                 key={cell.key}
                 onClick={() => setSelectedKey(cell.key)}
                 className={[
-                  "min-h-14 rounded-xl flex flex-col items-center justify-center gap-1 text-sm transition-colors",
+                  "min-h-16 sm:min-h-20 rounded-xl flex flex-col items-center justify-center gap-1.5 text-base sm:text-lg transition-colors",
                   isSelected
-                    ? "bg-vitality-orange text-off-white font-semibold"
+                    ? "bg-vitality-orange text-charcoal font-semibold"
                     : hasClasses
                     ? "bg-warm-beige hover:bg-tan/40 text-charcoal"
                     : "text-mid-gray/60",
@@ -165,11 +165,11 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
               >
                 <span>{cell.day}</span>
                 {hasClasses && (
-                  <span className="flex gap-0.5">
+                  <span className="flex gap-1">
                     {kinds.slice(0, 4).map((k) => (
                       <span
                         key={k}
-                        className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-off-white" : KIND_STYLES[k].dot}`}
+                        className={`w-2 h-2 rounded-full ${isSelected ? "bg-off-white" : KIND_STYLES[k].dot}`}
                       />
                     ))}
                   </span>
@@ -179,23 +179,23 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
           })}
         </div>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-5 pt-4 border-t border-tan/40 text-xs text-charcoal/70">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mt-6 pt-5 border-t border-tan/40 text-sm text-charcoal/70">
           {(Object.keys(KIND_STYLES) as Kind[])
             .filter((k) => k !== "other")
             .map((k) => (
-              <span key={k} className="flex items-center gap-1.5">
-                <span className={`w-2 h-2 rounded-full ${KIND_STYLES[k].dot}`} />
+              <span key={k} className="flex items-center gap-2">
+                <span className={`w-2.5 h-2.5 rounded-full ${KIND_STYLES[k].dot}`} />
                 {KIND_STYLES[k].label}
               </span>
             ))}
         </div>
-        <p className="text-xs text-mid-gray mt-3">
+        <p className="text-sm text-mid-gray mt-3">
           We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Days without a dot are closed.
         </p>
       </div>
 
-      {/* Selected day panel */}
-      <div>
+      {/* Selected day panel — below the calendar */}
+      <div className="max-w-3xl w-full mx-auto">
         {selectedKey ? (
           <>
             <h2 className="font-display text-2xl mb-1">{formatDateKeyLong(selectedKey)}</h2>
@@ -208,7 +208,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                 </p>
               </div>
             ) : (
-              <div className="space-y-3 mt-4">
+              <div className="grid sm:grid-cols-2 gap-3 mt-4">
                 {selectedSessions.map((s) => {
                   const kind = kindOf(s.title);
                   const style = KIND_STYLES[kind];
@@ -231,7 +231,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                       </div>
                       <a
                         href="/member"
-                        className="shrink-0 rounded-full bg-vitality-orange text-off-white px-5 py-2.5 text-center text-sm font-semibold hover:bg-warm-amber transition-colors"
+                        className="shrink-0 rounded-full bg-vitality-orange text-charcoal px-5 py-2.5 text-center text-sm font-semibold hover:bg-warm-amber transition-colors"
                       >
                         Book →
                       </a>
