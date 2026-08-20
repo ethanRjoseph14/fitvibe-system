@@ -12,7 +12,7 @@ export default function AboutPage() {
 
       {/* Intro */}
       <section className="mx-auto max-w-3xl px-6 pt-16 pb-10 text-center">
-        <p className="text-sm font-semibold tracking-widest text-evergreen uppercase mb-4">
+        <p className="font-section-header text-sm text-evergreen tracking-widest uppercase mb-4">
           Subang Jaya · Specialist Movement Centre
         </p>
         <h1 className="text-5xl mb-6">
@@ -29,7 +29,7 @@ export default function AboutPage() {
       <section className="bg-off-white py-14">
         <div className="mx-auto max-w-5xl px-6 grid md:grid-cols-2 gap-10">
           <div>
-            <h2 className="font-display text-2xl text-evergreen mb-3">Our Vision</h2>
+            <h2 className="text-2xl text-evergreen mb-3">Our Vision</h2>
             <p className="text-charcoal/80">
               A Subang Jaya where growing older never means giving up strength,
               independence, or dignity — where every adult 50+ has a place built
@@ -37,7 +37,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div>
-            <h2 className="font-display text-2xl text-evergreen mb-3">Our Mission</h2>
+            <h2 className="text-2xl text-evergreen mb-3">Our Mission</h2>
             <p className="text-charcoal/80">
               We give adults 50+ and people managing chronic conditions a specialist,
               assessment-led alternative to the generic gym — trained by real coaches,
@@ -49,7 +49,7 @@ export default function AboutPage() {
 
       {/* Story */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <h2 className="font-display text-3xl mb-6 text-center">Our Story</h2>
+        <h2 className="text-3xl mb-6 text-center">Our Story</h2>
         <div className="grid sm:grid-cols-[1fr_260px] gap-8 items-start">
           <div className="text-charcoal/80 space-y-4">
             <p>
@@ -60,7 +60,7 @@ export default function AboutPage() {
               The ForEva Method carries a personal tribute in its name — ForEva, in memory
               of Eva.
             </p>
-            <p className="text-sm text-mid-gray italic border-l-2 border-tan/60 pl-4">
+            <p className="font-quote text-sm text-mid-gray border-l-2 border-tan/60 pl-4">
               [Eva note for Ethan: that&apos;s the one detail I know for certain from our
               conversations. The rest of this story — what led you to build Fitvibe, the
               moment it clicked, why Subang Jaya, why this community — is yours to tell.
@@ -68,7 +68,7 @@ export default function AboutPage() {
               layout ready to receive it, photos included.]
             </p>
           </div>
-          <div className="w-full aspect-[4/5] rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
+          <div className="font-caption w-full aspect-[4/5] rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
             [ Photo — Ethan or the space, see Brand Guidelines §08, Photography Asset
             Library ]
           </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
       {founder && (
         <section className="bg-off-white py-14">
           <div className="mx-auto max-w-3xl px-6">
-            <h2 className="font-display text-2xl text-evergreen mb-6 text-center">
+            <h2 className="text-2xl text-evergreen mb-6 text-center">
               Meet the Founder
             </h2>
             <Link
@@ -90,14 +90,14 @@ export default function AboutPage() {
                 [ photo ]
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="font-display text-xl mb-0.5">{founder.name}</h3>
-                <p className="text-sm font-semibold text-vitality-orange mb-2">
+                <h3 className="text-xl mb-0.5">{founder.name}</h3>
+                <p className="font-section-header text-sm text-vitality-orange mb-2">
                   {founder.title}
                 </p>
-                <p className="text-sm text-charcoal/70">
+                <p className="font-caption text-sm text-charcoal/70">
                   {founder.bio.split("[Eva note")[0].trim()}
                 </p>
-                <p className="text-sm text-evergreen font-semibold mt-3">
+                <p className="font-caption text-sm text-evergreen font-semibold mt-3">
                   View full profile →
                 </p>
               </div>
@@ -108,7 +108,7 @@ export default function AboutPage() {
 
       {/* CTA links */}
       <section className="mx-auto max-w-3xl px-6 py-16 text-center">
-        <h2 className="font-display text-2xl mb-6">Go deeper</h2>
+        <h2 className="text-2xl mb-6">Go deeper</h2>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/the-foreva-method"
