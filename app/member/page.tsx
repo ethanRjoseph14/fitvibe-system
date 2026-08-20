@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import { db } from "@/db/client";
 import { members, creditPacks, accessCredentials, bookings, classSessions } from "@/db/schema";
@@ -47,25 +48,36 @@ export default async function MemberPortalPage({
     return (
       <div className="min-h-screen bg-warm-beige text-charcoal">
         <NavBar />
-        <section className="mx-auto max-w-md px-6 py-24">
-          <h1 className="text-3xl mb-2 text-center">Member Portal</h1>
-          <p className="text-charcoal/70 mb-8 text-center">
-            Prototype login — enter the email you registered with. (Demo data: try{" "}
-            <code className="text-evergreen">siti.aminah@example.com</code>.) Production
-            build needs real auth (magic link or password) before go-live.
-          </p>
-          <form action="/member" className="flex gap-2">
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="you@example.com"
-              className="flex-1 rounded-full border border-tan bg-off-white px-4 py-2.5 focus:outline-none focus:border-evergreen"
+        <section className="mx-auto max-w-3xl px-6 py-24 grid sm:grid-cols-[1fr_180px] gap-8 items-center">
+          <div className="max-w-md">
+            <h1 className="text-3xl mb-2 text-center">Member Portal</h1>
+            <p className="text-charcoal/70 mb-8 text-center">
+              Prototype login — enter the email you registered with. (Demo data: try{" "}
+              <code className="text-evergreen">siti.aminah@example.com</code>.) Production
+              build needs real auth (magic link or password) before go-live.
+            </p>
+            <form action="/member" className="flex gap-2">
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="flex-1 rounded-full border border-tan bg-off-white px-4 py-2.5 focus:outline-none focus:border-evergreen"
+              />
+              <button className="rounded-full bg-vitality-orange text-charcoal px-5 py-2.5 font-semibold hover:bg-warm-amber transition-colors">
+                Enter
+              </button>
+            </form>
+          </div>
+          <div className="relative hidden sm:block w-full aspect-[3/4] rounded-2xl overflow-hidden border border-tan/60">
+            <Image
+              src="/images/member-login-accent.webp"
+              alt="Portrait of a Fitvibe member"
+              fill
+              sizes="180px"
+              className="object-cover"
             />
-            <button className="rounded-full bg-vitality-orange text-charcoal px-5 py-2.5 font-semibold hover:bg-warm-amber transition-colors">
-              Enter
-            </button>
-          </form>
+          </div>
         </section>
       </div>
     );
