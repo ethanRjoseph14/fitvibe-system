@@ -29,7 +29,7 @@ export default async function BookPage() {
       <NavBar />
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="font-display text-4xl mb-2">Class Timetable</h1>
+          <h1 className="text-4xl mb-2">Class Timetable</h1>
           <p className="text-charcoal/70 mb-10">
             We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Every operation day starts
             with a Beginner class, then Spark &amp; Forge run side by side in split areas for
