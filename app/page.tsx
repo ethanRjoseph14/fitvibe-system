@@ -24,7 +24,7 @@ export default function Home() {
           <div className="flex gap-4">
             <Link
               href="/programmes"
-              className="rounded-full bg-vitality-orange text-off-white px-6 py-3 font-semibold hover:bg-warm-amber transition-colors"
+              className="rounded-full bg-vitality-orange text-charcoal px-6 py-3 font-semibold hover:bg-warm-amber transition-colors"
             >
               Founding Member offer
             </Link>
@@ -79,7 +79,7 @@ export default function Home() {
         </p>
         <Link
           href="/programmes"
-          className="rounded-full bg-vitality-orange text-off-white px-8 py-3 font-semibold hover:bg-warm-amber transition-colors"
+          className="rounded-full bg-vitality-orange text-charcoal px-8 py-3 font-semibold hover:bg-warm-amber transition-colors"
         >
           See Founding Member pricing
         </Link>
