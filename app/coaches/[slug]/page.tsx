@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NavBar from "@/components/NavBar";
@@ -25,9 +26,21 @@ export default async function CoachDetailPage({
         </Link>
 
         <div className="mt-6 grid sm:grid-cols-[220px_1fr] gap-8 items-start">
-          <div className="font-caption w-full aspect-square rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
-            [ Photo of {coach.name} goes here — see Brand Guidelines §08, Photography Asset
-            Library ]
+          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
+            {coach.photo ? (
+              <Image
+                src={coach.photo}
+                alt={coach.name}
+                fill
+                sizes="220px"
+                className="object-cover"
+              />
+            ) : (
+              <span className="font-caption">
+                [ Photo of {coach.name} goes here — see Brand Guidelines §08, Photography
+                Asset Library ]
+              </span>
+            )}
           </div>
 
           <div>
