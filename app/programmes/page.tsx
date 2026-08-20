@@ -38,7 +38,7 @@ function PlanCard({ p }: { p: Plan }) {
       </p>
       <a
         href={`/member?join=${p.id}`}
-        className="mt-auto rounded-full bg-vitality-orange text-off-white px-5 py-2.5 text-center font-semibold hover:bg-warm-amber transition-colors"
+        className="mt-auto rounded-full bg-vitality-orange text-charcoal px-5 py-2.5 text-center font-semibold hover:bg-warm-amber transition-colors"
       >
         Get started
       </a>
