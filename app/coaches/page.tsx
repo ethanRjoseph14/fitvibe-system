@@ -37,7 +37,7 @@ export default function CoachesPage() {
               <div className="shrink-0 w-20 h-20 rounded-full bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-1">
                 [ photo ]
               </div>
-              <div className="text-center">
+              <div className="flex-1 min-w-0 text-center">
                 <h2 className="text-xl mb-0.5">{coach.name}</h2>
                 <p className="font-section-header text-sm text-vitality-orange mb-2">{coach.title}</p>
                 <p className="font-caption text-sm text-charcoal/70 line-clamp-2">
