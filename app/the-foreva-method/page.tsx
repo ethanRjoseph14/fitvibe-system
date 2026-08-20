@@ -10,7 +10,7 @@ export default function ForEvaMethodPage() {
         <div className="text-center mb-10">
           <h1 className="text-4xl mb-6">The ForEva Method</h1>
           <p className="text-lg text-charcoal/80">
-            A proprietary assessment and training framework developed for adults aged 50
+            A proprietary assessment and training framework developed for adults aged 40
             and above. It is not just a training protocol. It is a philosophy: that
             movement, at any age, should feel purposeful, achievable, and lasting.
           </p>
