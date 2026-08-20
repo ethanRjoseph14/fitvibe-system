@@ -34,8 +34,18 @@ export default function CoachesPage() {
               href={`/coaches/${coach.slug}`}
               className="rounded-2xl bg-off-white border border-tan/60 p-6 flex gap-5 hover:border-evergreen transition-colors"
             >
-              <div className="shrink-0 w-20 h-20 rounded-full bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-1">
-                [ photo ]
+              <div className="relative shrink-0 w-20 h-20 rounded-full overflow-hidden bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-1">
+                {coach.photo ? (
+                  <Image
+                    src={coach.photo}
+                    alt={coach.name}
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                ) : (
+                  "[ photo ]"
+                )}
               </div>
               <div className="flex-1 min-w-0 text-center">
                 <h2 className="text-xl mb-0.5">{coach.name}</h2>
@@ -48,10 +58,12 @@ export default function CoachesPage() {
           ))}
         </div>
 
-        <p className="font-caption text-sm text-mid-gray mt-10 text-center">
-          Coach photos are placeholders for now — see Brand Guidelines §08, Photography
-          Asset Library, once real photos are ready.
-        </p>
+        {coaches.some((c) => !c.photo) && (
+          <p className="font-caption text-sm text-mid-gray mt-10 text-center">
+            Lorna&apos;s photo is still a placeholder — see Brand Guidelines §08,
+            Photography Asset Library, once it&apos;s ready.
+          </p>
+        )}
       </section>
     </div>
   );
