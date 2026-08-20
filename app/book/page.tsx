@@ -28,12 +28,14 @@ export default async function BookPage() {
     <div className="min-h-screen bg-warm-beige text-charcoal">
       <NavBar />
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h1 className="font-display text-4xl mb-2">Class Timetable</h1>
-        <p className="text-charcoal/70 mb-10 max-w-2xl">
-          We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Every operation day starts
-          with a Beginner class, then Spark &amp; Forge run side by side in split areas for
-          the rest of the day. Pick a date on the calendar to see what&apos;s on.
-        </p>
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="font-display text-4xl mb-2">Class Timetable</h1>
+          <p className="text-charcoal/70 mb-10">
+            We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Every operation day starts
+            with a Beginner class, then Spark &amp; Forge run side by side in split areas for
+            the rest of the day. Pick a date on the calendar to see what&apos;s on.
+          </p>
+        </div>
 
         <BookingCalendar sessions={calendarSessions} />
       </section>
