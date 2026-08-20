@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 
@@ -36,11 +37,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="rounded-3xl bg-sage/20 border border-sage/40 p-10 h-80 flex items-center justify-center">
-          <p className="font-caption text-2xl text-evergreen text-center">
-            [ Warm, candid photography of coach-client interaction goes here —
-            see Brand Guidelines §08, Photography Asset Library ]
-          </p>
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 h-80">
+          <Image
+            src="/images/home-hero.webp"
+            alt="A coach steadying a member's arm as she moves through a stretch"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
       </section>
 
@@ -66,6 +71,28 @@ export default function Home() {
               <p className="text-charcoal/70">{v.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Community strip */}
+      <section className="mx-auto max-w-6xl px-6 py-16 grid sm:grid-cols-2 gap-6">
+        <div className="relative rounded-2xl overflow-hidden border border-tan/60 aspect-[4/3]">
+          <Image
+            src="/images/home-community-1.webp"
+            alt="A coach supporting a member through a guided squat, dumbbells set out around them"
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="relative rounded-2xl overflow-hidden border border-tan/60 aspect-[4/3]">
+          <Image
+            src="/images/home-community-2.webp"
+            alt="Two members smiling together during a partner-assisted stretch"
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
         </div>
       </section>
 
