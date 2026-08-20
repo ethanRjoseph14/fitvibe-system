@@ -14,12 +14,12 @@ export default function Home() {
             Subang Jaya · Specialist Movement Centre
           </p>
           <h1 className="text-5xl md:text-6xl leading-tight mb-6">
-            Getting Old With A<br /> Stronger Muscle.
+            Getting Fit Everyday With A<br /> Stronger Muscle.
           </h1>
           <p className="text-lg text-charcoal/80 max-w-md mb-8">
             Fitvibe is not a gym. It&apos;s a specialist movement centre built around{" "}
             <span className="font-semibold text-evergreen">The ForEva Method</span> — for
-            adults 50+ and working professionals managing chronic conditions who deserve
+            adults 40+ and working professionals managing chronic conditions who deserve
             to move freely, live fully, and age powerfully.
           </p>
           <div className="flex gap-4">
