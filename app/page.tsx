@@ -38,7 +38,7 @@ export default function Home() {
         </div>
         <div className="rounded-3xl bg-sage/20 border border-sage/40 p-10 h-80 flex items-center justify-center">
           <p className="font-display text-2xl text-evergreen text-center">
-            [ Warm, candid photography of trainer-client interaction goes here —
+            [ Warm, candid photography of coach-client interaction goes here —
             see Brand Guidelines §08, Photography Asset Library ]
           </p>
         </div>
