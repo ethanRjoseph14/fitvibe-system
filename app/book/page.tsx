@@ -2,7 +2,7 @@ import NavBar from "@/components/NavBar";
 import { db } from "@/db/client";
 import { classSessions } from "@/db/schema";
 import { gt } from "drizzle-orm";
-import { format } from "date-fns";
+import { formatClassDay, formatClassTime } from "@/lib/tz";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +13,10 @@ export default async function BookPage() {
     .from(classSessions)
     .where(gt(classSessions.startTime, now))
     .orderBy(classSessions.startTime)
-    .limit(40);
+    .limit(250);
 
   const byDay = sessions.reduce<Record<string, typeof sessions>>((acc, s) => {
-    const day = format(new Date(s.startTime), "EEEE, d MMM");
+    const day = formatClassDay(new Date(s.startTime));
     (acc[day] ??= []).push(s);
     return acc;
   }, {});
@@ -27,9 +27,12 @@ export default async function BookPage() {
       <section className="mx-auto max-w-4xl px-6 py-16">
         <h1 className="font-display text-4xl mb-2">Class Timetable</h1>
         <p className="text-charcoal/70 mb-10">
-          Browse upcoming Spark &amp; Forge sessions. This page is designed to be embedded
-          on www.fitvibe.my as a public marketing surface — booking itself requires a
-          member account (see Member Portal).
+          We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Every operation day starts
+          with a Beginner class, then Spark &amp; Forge run side by side in split areas for
+          the rest of the day. New here? Start with a Beginner class — after your
+          assessment, we&apos;ll guide you into Spark or Forge at the right pace for you.
+          This page is designed to be embedded on www.fitvibe.my as a public marketing
+          surface — booking itself requires a member account (see Member Portal).
         </p>
 
         <div className="space-y-8">
@@ -42,7 +45,7 @@ export default async function BookPage() {
                     <div>
                       <p className="font-semibold">{s.title}</p>
                       <p className="text-sm text-mid-gray">
-                        {format(new Date(s.startTime), "h:mm a")} · cap {s.capacity} · {s.instructor}
+                        {formatClassTime(new Date(s.startTime))} · cap {s.capacity} · {s.instructor}
                       </p>
                     </div>
                     <a
