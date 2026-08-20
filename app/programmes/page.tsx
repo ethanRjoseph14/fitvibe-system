@@ -143,7 +143,7 @@ export default async function ProgrammesPage() {
         )}
 
         <div className="grid md:grid-cols-2 gap-6 mt-4">
-          <div className="rounded-2xl bg-warm-amber/15 border border-warm-amber/40 p-6 text-sm text-charcoal/80">
+          <div className="rounded-2xl bg-warm-amber/15 border border-warm-amber/40 p-6 text-sm text-charcoal/80 text-center">
             <strong className="font-section-header text-vitality-orange block mb-1">
               Soft Launch Trial Discount
             </strong>
@@ -151,14 +151,14 @@ export default async function ProgrammesPage() {
             Soft Launch trial window from 14 October to 11 November 2026 — before Hard
             Launch. Discount applies automatically at checkout during that period.
           </div>
-          <div className="rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80">
+          <div className="rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80 text-center">
             <strong className="font-section-header text-evergreen block mb-1">Refer a Friend</strong>
             When someone you refer signs up, you get 1 free Forge credit. Simple as that —
             ask us how at the front desk or in the member portal.
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80">
+        <div className="mt-6 rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80 text-center">
           <strong className="font-section-header text-evergreen">How payment works today:</strong>{" "}
           Pay via DuitNow or bank transfer, then submit your reference number in the member
           portal. We&apos;ll confirm and load your credits within one business day. Online
