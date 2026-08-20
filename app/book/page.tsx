@@ -38,13 +38,13 @@ export default async function BookPage() {
           </p>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden border border-sage/40 h-56 sm:h-72 max-w-2xl mx-auto mb-12">
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 h-64 sm:h-80 max-w-md mx-auto mb-12">
           <Image
             src="/images/book-banner.webp"
             alt="A member resting between sets, taking a moment to breathe"
             fill
-            sizes="(min-width: 640px) 672px, 100vw"
-            className="object-cover"
+            sizes="(min-width: 640px) 448px, 100vw"
+            className="object-cover object-top"
             priority
           />
         </div>
