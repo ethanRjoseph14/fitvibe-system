@@ -62,7 +62,7 @@ export default async function MemberPortalPage({
               placeholder="you@example.com"
               className="flex-1 rounded-full border border-tan bg-off-white px-4 py-2.5 focus:outline-none focus:border-evergreen"
             />
-            <button className="rounded-full bg-vitality-orange text-off-white px-5 py-2.5 font-semibold hover:bg-warm-amber transition-colors">
+            <button className="rounded-full bg-vitality-orange text-charcoal px-5 py-2.5 font-semibold hover:bg-warm-amber transition-colors">
               Enter
             </button>
           </form>
