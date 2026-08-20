@@ -20,7 +20,7 @@ export default function AboutPage() {
           <Wordmark />
         </h1>
         <p className="text-lg text-charcoal/80">
-          Fitvibe is not a gym. It&apos;s a specialist movement centre built for adults 50+
+          Fitvibe is not a gym. It&apos;s a specialist movement centre built for adults 40+
           and working professionals managing chronic conditions — people who deserve
           training designed around their body, not adapted from someone else&apos;s.
         </p>
@@ -47,14 +47,14 @@ export default function AboutPage() {
             <h2 className="text-2xl text-evergreen mb-3">Our Vision</h2>
             <p className="text-charcoal/80">
               A Subang Jaya where growing older never means giving up strength,
-              independence, or dignity — where every adult 50+ has a place built
+              independence, or dignity — where every adult 40+ has a place built
               specifically for their body, not squeezed into someone else&apos;s programme.
             </p>
           </div>
           <div>
             <h2 className="text-2xl text-evergreen mb-3">Our Mission</h2>
             <p className="text-charcoal/80">
-              We give adults 50+ and people managing chronic conditions a specialist,
+              We give adults 40+ and people managing chronic conditions a specialist,
               assessment-led alternative to the generic gym — trained by real coaches,
               grounded in exercise science, one member at a time.
             </p>
