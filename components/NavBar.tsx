@@ -23,7 +23,7 @@ export default function NavBar() {
         </nav>
         <Link
           href="/programmes"
-          className="rounded-full bg-vitality-orange text-off-white px-5 py-2 text-sm font-semibold hover:bg-warm-amber transition-colors"
+          className="rounded-full bg-vitality-orange text-charcoal px-5 py-2 text-sm font-semibold hover:bg-warm-amber transition-colors"
         >
           Become a Founding Member
         </Link>
