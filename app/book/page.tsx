@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import BookingCalendar from "@/components/BookingCalendar";
 import { db } from "@/db/client";
@@ -35,6 +36,17 @@ export default async function BookPage() {
             with a Beginner class, then Spark &amp; Forge run side by side in split areas for
             the rest of the day. Pick a date on the calendar to see what&apos;s on.
           </p>
+        </div>
+
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 h-56 sm:h-72 max-w-2xl mx-auto mb-12">
+          <Image
+            src="/images/book-banner.webp"
+            alt="A member resting between sets, taking a moment to breathe"
+            fill
+            sizes="(min-width: 640px) 672px, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
 
         <BookingCalendar sessions={calendarSessions} />
