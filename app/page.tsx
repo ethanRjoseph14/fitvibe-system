@@ -9,10 +9,10 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <p className="text-sm font-semibold tracking-widest text-evergreen uppercase mb-4">
+          <p className="font-section-header text-sm text-evergreen tracking-widest uppercase mb-4">
             Subang Jaya · Specialist Movement Centre
           </p>
-          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
+          <h1 className="text-5xl md:text-6xl leading-tight mb-6">
             Getting Old With A<br /> Stronger Muscle.
           </h1>
           <p className="text-lg text-charcoal/80 max-w-md mb-8">
@@ -37,7 +37,7 @@ export default function Home() {
           </div>
         </div>
         <div className="rounded-3xl bg-sage/20 border border-sage/40 p-10 h-80 flex items-center justify-center">
-          <p className="font-display text-2xl text-evergreen text-center">
+          <p className="font-caption text-2xl text-evergreen text-center">
             [ Warm, candid photography of coach-client interaction goes here —
             see Brand Guidelines §08, Photography Asset Library ]
           </p>
@@ -62,7 +62,7 @@ export default function Home() {
             },
           ].map((v) => (
             <div key={v.title}>
-              <h3 className="font-display text-xl text-evergreen mb-2">{v.title}</h3>
+              <h3 className="text-xl text-evergreen mb-2">{v.title}</h3>
               <p className="text-charcoal/70">{v.body}</p>
             </div>
           ))}
@@ -71,7 +71,7 @@ export default function Home() {
 
       {/* Founding member CTA */}
       <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <h2 className="font-display text-3xl mb-4">Become a Founding Member.</h2>
+        <h2 className="text-3xl mb-4">Become a Founding Member.</h2>
         <p className="text-charcoal/70 max-w-xl mx-auto mb-8">
           Lock in a rate below our standing Forever Pass price, unlimited across Spark &amp;
           Forge, for 6 or 12 months. This offer closes before our Soft Launch trial begins
@@ -85,7 +85,7 @@ export default function Home() {
         </Link>
       </section>
 
-      <footer className="border-t border-tan/60 py-8 text-center text-sm text-mid-gray">
+      <footer className="font-caption border-t border-tan/60 py-8 text-center text-sm text-mid-gray">
         Fitvibe — www.fitvibe.my — Subang Jaya, Malaysia
       </footer>
     </div>
