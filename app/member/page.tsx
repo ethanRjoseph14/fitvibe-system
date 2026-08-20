@@ -48,8 +48,8 @@ export default async function MemberPortalPage({
       <div className="min-h-screen bg-warm-beige text-charcoal">
         <NavBar />
         <section className="mx-auto max-w-md px-6 py-24">
-          <h1 className="text-3xl mb-2">Member Portal</h1>
-          <p className="text-charcoal/70 mb-8">
+          <h1 className="text-3xl mb-2 text-center">Member Portal</h1>
+          <p className="text-charcoal/70 mb-8 text-center">
             Prototype login — enter the email you registered with. (Demo data: try{" "}
             <code className="text-evergreen">siti.aminah@example.com</code>.) Production
             build needs real auth (magic link or password) before go-live.
