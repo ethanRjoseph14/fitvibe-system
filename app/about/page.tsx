@@ -27,7 +27,7 @@ export default function AboutPage() {
 
       {/* Vision & Mission */}
       <section className="bg-off-white py-14">
-        <div className="mx-auto max-w-5xl px-6 grid md:grid-cols-2 gap-10">
+        <div className="mx-auto max-w-5xl px-6 grid md:grid-cols-2 gap-10 text-center">
           <div>
             <h2 className="text-2xl text-evergreen mb-3">Our Vision</h2>
             <p className="text-charcoal/80">
@@ -89,7 +89,7 @@ export default function AboutPage() {
               <div className="shrink-0 w-28 h-28 rounded-full bg-sage/20 border border-sage/40 flex items-center justify-center text-xs text-evergreen text-center px-2">
                 [ photo ]
               </div>
-              <div className="text-center sm:text-left">
+              <div className="text-center">
                 <h3 className="text-xl mb-0.5">{founder.name}</h3>
                 <p className="font-section-header text-sm text-vitality-orange mb-2">
                   {founder.title}
