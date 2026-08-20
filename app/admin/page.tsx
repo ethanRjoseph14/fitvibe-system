@@ -61,11 +61,11 @@ export default async function AdminPage() {
     <div className="min-h-screen bg-warm-beige text-charcoal">
       <NavBar />
       <section className="mx-auto max-w-6xl px-6 py-12">
-        <h1 className="font-display text-3xl mb-8">Admin Dashboard</h1>
+        <h1 className="text-3xl mb-8">Admin Dashboard</h1>
 
         {/* Pending payments */}
         <div className="mb-10">
-          <h2 className="font-display text-xl text-evergreen mb-3">
+          <h2 className="text-xl text-evergreen mb-3">
             Pending Payments ({pendingPayments.length})
           </h2>
           {pendingPayments.length === 0 && (
@@ -100,7 +100,7 @@ export default async function AdminPage() {
 
         {/* Members */}
         <div className="mb-10">
-          <h2 className="font-display text-xl text-evergreen mb-3">Members ({allMembers.length})</h2>
+          <h2 className="text-xl text-evergreen mb-3">Members ({allMembers.length})</h2>
           <div className="overflow-x-auto rounded-xl border border-tan/60 bg-off-white">
             <table className="w-full text-sm">
               <thead>
@@ -137,7 +137,7 @@ export default async function AdminPage() {
 
         {/* Access log */}
         <div>
-          <h2 className="font-display text-xl text-evergreen mb-3">Recent Door Access Events</h2>
+          <h2 className="text-xl text-evergreen mb-3">Recent Door Access Events</h2>
           <div className="space-y-1 text-sm">
             {recentAccess.map((log) => (
               <div key={log.id} className="flex justify-between border-b border-tan/30 py-2">
