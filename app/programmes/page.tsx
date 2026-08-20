@@ -5,8 +5,55 @@ import { eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
+const UNLIMITED_THRESHOLD = 9000;
+
+type Plan = Awaited<ReturnType<typeof getPlans>>[number];
+
+async function getPlans() {
+  return db.select().from(membershipPlans).where(eq(membershipPlans.active, true));
+}
+
+function creditsLabel(p: Plan) {
+  if (p.creditsIncluded >= UNLIMITED_THRESHOLD) return "Unlimited classes";
+  return `${p.creditsIncluded} credit${p.creditsIncluded === 1 ? "" : "s"}`;
+}
+
+function PlanCard({ p }: { p: Plan }) {
+  return (
+    <div
+      className={`rounded-2xl border p-6 bg-off-white flex flex-col ${
+        p.isFoundingMemberOffer ? "border-vitality-orange border-2" : "border-tan/60"
+      }`}
+    >
+      {p.isFoundingMemberOffer && (
+        <span className="text-xs font-bold uppercase tracking-wide text-vitality-orange mb-2">
+          Founding Member — limited-time pricing
+        </span>
+      )}
+      <h3 className="font-display text-xl mb-1">{p.name}</h3>
+      <p className="text-sm text-charcoal/60 mb-4">{p.description}</p>
+      <p className="text-3xl font-semibold mb-1">RM {p.priceRM}</p>
+      <p className="text-sm text-mid-gray mb-6">
+        {creditsLabel(p)} · valid {p.validityDays} days
+      </p>
+      <a
+        href={`/member?join=${p.id}`}
+        className="mt-auto rounded-full bg-vitality-orange text-off-white px-5 py-2.5 text-center font-semibold hover:bg-warm-amber transition-colors"
+      >
+        Get started
+      </a>
+    </div>
+  );
+}
+
 export default async function ProgrammesPage() {
-  const plans = await db.select().from(membershipPlans).where(eq(membershipPlans.active, true));
+  const plans = await getPlans();
+
+  const sparkPackages = plans.filter((p) => p.name.startsWith("Spark —") && !p.name.includes("Walk-In"));
+  const forgePackages = plans.filter((p) => p.name.startsWith("Forge —") && !p.name.includes("Walk-In"));
+  const walkIns = plans.filter((p) => p.name.includes("Walk-In"));
+  const sjgc = plans.filter((p) => p.name.startsWith("SJGC"));
+  const passes = plans.filter((p) => p.name === "Forever Pass" || p.name.startsWith("Founding Member"));
 
   return (
     <div className="min-h-screen bg-warm-beige text-charcoal">
@@ -16,44 +63,102 @@ export default async function ProgrammesPage() {
         <p className="text-charcoal/70 max-w-2xl mb-12">
           Credit-based packs, same logic as Punchpass: buy a pack, book classes with your
           credits, top up when you run low. Spark is small-group mobility &amp; balance
-          (max 4). Forge is small-group strength (max 8). 1-on-1 is private ForEva Method
-          training with Ethan.
+          (max 5 pax). Forge is small-group strength (max 9 pax, provisional — the true
+          cap will be confirmed once we&apos;re open and running real classes).
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {plans.map((p) => (
-            <div
-              key={p.id}
-              className={`rounded-2xl border p-6 bg-off-white flex flex-col ${
-                p.isFoundingMemberOffer ? "border-vitality-orange border-2" : "border-tan/60"
-              }`}
-            >
-              {p.isFoundingMemberOffer && (
-                <span className="text-xs font-bold uppercase tracking-wide text-vitality-orange mb-2">
-                  Founding Member — 20 slots only
-                </span>
-              )}
-              <h3 className="font-display text-xl mb-1">{p.name}</h3>
-              <p className="text-sm text-charcoal/60 mb-4">{p.description}</p>
-              <p className="text-3xl font-semibold mb-1">RM {p.priceRM}</p>
-              <p className="text-sm text-mid-gray mb-6">
-                {p.creditsIncluded} credits · valid {p.validityDays} days
-              </p>
-              <a
-                href={`/member?join=${p.id}`}
-                className="mt-auto rounded-full bg-vitality-orange text-off-white px-5 py-2.5 text-center font-semibold hover:bg-warm-amber transition-colors"
-              >
-                Get started
-              </a>
+        {sparkPackages.length > 0 && (
+          <div className="mb-14">
+            <h2 className="font-display text-2xl text-evergreen mb-1">Spark Credit Packages</h2>
+            <p className="text-sm text-charcoal/60 mb-6">Small-group mobility &amp; balance, max 5 pax.</p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {sparkPackages.map((p) => (
+                <PlanCard key={p.id} p={p} />
+              ))}
             </div>
-          ))}
+          </div>
+        )}
+
+        {forgePackages.length > 0 && (
+          <div className="mb-14">
+            <h2 className="font-display text-2xl text-evergreen mb-1">Forge Credit Packages</h2>
+            <p className="text-sm text-charcoal/60 mb-6">Small-group strength, max 9 pax (provisional).</p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {forgePackages.map((p) => (
+                <PlanCard key={p.id} p={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {walkIns.length > 0 && (
+          <div className="mb-14">
+            <h2 className="font-display text-2xl text-evergreen mb-1">Sunday Walk-In</h2>
+            <p className="text-sm text-charcoal/60 mb-6">
+              No commitment, pay per class. Sundays only — every other day of the week is
+              credit-pack or pass only.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {walkIns.map((p) => (
+                <PlanCard key={p.id} p={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {passes.length > 0 && (
+          <div className="mb-14">
+            <h2 className="font-display text-2xl text-evergreen mb-1">Unlimited Passes</h2>
+            <p className="text-sm text-charcoal/60 mb-6">
+              Unlimited access across both Spark &amp; Forge. To keep classes fair, pass
+              holders are capped at 60% of any class&apos;s seats — the rest are always
+              held for paying walk-in/credit members.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {passes.map((p) => (
+                <PlanCard key={p.id} p={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {sjgc.length > 0 && (
+          <div className="mb-14">
+            <h2 className="font-display text-2xl text-evergreen mb-1">SJGC Members</h2>
+            <p className="text-sm text-charcoal/60 mb-6">
+              For our Strong Beyond 50 community at SJGC. Already have a Forge — Starter
+              pack? Your SJGC partner rate is already built into that price — no separate
+              sign-up needed.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {sjgc.map((p) => (
+                <PlanCard key={p.id} p={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="grid md:grid-cols-2 gap-6 mt-4">
+          <div className="rounded-2xl bg-warm-amber/15 border border-warm-amber/40 p-6 text-sm text-charcoal/80">
+            <strong className="font-display text-vitality-orange block mb-1">
+              Soft Launch Trial Discount
+            </strong>
+            10% off every Sunday walk-in rate and every Spark/Forge credit package, for our
+            Soft Launch trial window from 14 October to 11 November 2026 — before Hard
+            Launch. Discount applies automatically at checkout during that period.
+          </div>
+          <div className="rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80">
+            <strong className="font-display text-evergreen block mb-1">Refer a Friend</strong>
+            When someone you refer signs up, you get 1 free Forge credit. Simple as that —
+            ask us how at the front desk or in the member portal.
+          </div>
         </div>
 
-        <div className="mt-12 rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80">
+        <div className="mt-6 rounded-2xl bg-sage/15 border border-sage/40 p-6 text-sm text-charcoal/80">
           <strong className="font-display text-evergreen">How payment works today:</strong>{" "}
           Pay via DuitNow or bank transfer, then submit your reference number in the member
           portal. We&apos;ll confirm and load your credits within one business day. Online
-          card checkout is on the roadmap for a future release.
+          card/FPX checkout via Billplz is on the roadmap for a future release.
         </div>
       </section>
     </div>
