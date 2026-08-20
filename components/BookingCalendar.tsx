@@ -124,7 +124,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
           >
             ‹
           </button>
-          <p className="font-display text-2xl sm:text-3xl">{monthLabel}</p>
+          <p className="font-section-header text-2xl sm:text-3xl">{monthLabel}</p>
           <button
             type="button"
             onClick={() => shiftMonth(1)}
@@ -191,7 +191,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
               </span>
             ))}
         </div>
-        <p className="text-sm text-mid-gray mt-3">
+        <p className="font-caption text-sm text-mid-gray mt-3">
           We&apos;re open Monday, Wednesday, Friday &amp; Sunday. Days without a dot are closed.
         </p>
       </div>
@@ -200,11 +200,11 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
       <div className="max-w-3xl w-full mx-auto">
         {selectedKey ? (
           <>
-            <h2 className="font-display text-2xl mb-1">{formatDateKeyLong(selectedKey)}</h2>
+            <h2 className="text-2xl mb-1">{formatDateKeyLong(selectedKey)}</h2>
             {selectedSessions.length === 0 ? (
               <div className="rounded-xl bg-off-white border border-tan/60 p-6 mt-4 text-charcoal/70">
-                <p className="font-semibold mb-1">We&apos;re closed this day.</p>
-                <p className="text-sm">
+                <p className="font-subheading mb-1">We&apos;re closed this day.</p>
+                <p className="font-caption text-sm">
                   Fitvibe operates Monday, Wednesday, Friday &amp; Sunday. Pick a highlighted
                   date on the calendar to see that day&apos;s classes.
                 </p>
@@ -222,12 +222,12 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
                     >
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full border ${style.badge}`}>
+                          <span className={`font-section-header text-xs uppercase tracking-wide px-2 py-0.5 rounded-full border ${style.badge}`}>
                             {style.label}
                           </span>
-                          <p className="font-semibold">{s.title}</p>
+                          <p className="font-subheading">{s.title}</p>
                         </div>
-                        <p className="text-sm text-mid-gray">
+                        <p className="font-caption text-sm text-mid-gray">
                           {formatTimeRange(new Date(s.startTime), new Date(s.endTime))} · Up to{" "}
                           {s.capacity} people
                           {s.instructor ? (
@@ -266,7 +266,7 @@ export default function BookingCalendar({ sessions }: { sessions: CalendarSessio
         )}
 
         <div className="rounded-xl bg-sage/15 border border-sage/40 p-4 mt-6 text-sm text-charcoal/80">
-          <strong className="font-display text-evergreen">New to Fitvibe?</strong> Every
+          <strong className="font-section-header text-evergreen">New to Fitvibe?</strong> Every
           operation day starts with a Beginner class — the assessment-guided starting point
           before you move into Spark or Forge. Booking requires a member account (see Member
           Portal).
