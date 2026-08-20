@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import { coaches } from "@/lib/coaches";
@@ -13,6 +14,17 @@ export default function CoachesPage() {
             Every class at Fitvibe is led by a real coach, not a class-in-a-box program.
             Here&apos;s who you&apos;ll train with.
           </p>
+        </div>
+
+        <div className="relative rounded-3xl overflow-hidden border border-sage/40 aspect-[21/9] mb-14">
+          <Image
+            src="/images/coaches-banner.webp"
+            alt="A member training with a resistance band, focused and determined"
+            fill
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
 
         <div className="grid sm:grid-cols-2 gap-6">
