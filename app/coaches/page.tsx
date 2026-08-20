@@ -8,7 +8,7 @@ export default function CoachesPage() {
       <NavBar />
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <h1 className="font-display text-4xl mb-3">Meet the Coaches</h1>
+          <h1 className="text-4xl mb-3">Meet the Coaches</h1>
           <p className="text-charcoal/70">
             Every class at Fitvibe is led by a real coach, not a class-in-a-box program.
             Here&apos;s who you&apos;ll train with.
@@ -26,9 +26,9 @@ export default function CoachesPage() {
                 [ photo ]
               </div>
               <div>
-                <h2 className="font-display text-xl mb-0.5">{coach.name}</h2>
-                <p className="text-sm font-semibold text-vitality-orange mb-2">{coach.title}</p>
-                <p className="text-sm text-charcoal/70 line-clamp-2">
+                <h2 className="text-xl mb-0.5">{coach.name}</h2>
+                <p className="font-section-header text-sm text-vitality-orange mb-2">{coach.title}</p>
+                <p className="font-caption text-sm text-charcoal/70 line-clamp-2">
                   {coach.active ? coach.bio : "Joins the teaching roster soon."}
                 </p>
               </div>
@@ -36,7 +36,7 @@ export default function CoachesPage() {
           ))}
         </div>
 
-        <p className="text-sm text-mid-gray mt-10 text-center">
+        <p className="font-caption text-sm text-mid-gray mt-10 text-center">
           Coach photos are placeholders for now — see Brand Guidelines §08, Photography
           Asset Library, once real photos are ready.
         </p>
