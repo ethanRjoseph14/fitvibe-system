@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Caprasimo&display=swap");
 @import "tailwindcss";
 
 /* Fitvibe Brand Identity — 20 Aug 2026 update. Vitality Orange stays the
@@ -40,6 +40,10 @@
 
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Poppins", system-ui, sans-serif;
+  /* Wordmark font — reserved for the "Fitvibe" logo lockup only (nav logo,
+     hero brand mark). Not the general heading font. See Brand Guidelines
+     §05: Fit = Evergreen, vibe = Vitality Orange, always in Caprasimo. */
+  --font-wordmark: "Caprasimo", "Playfair Display", serif;
 }
 
 body {
