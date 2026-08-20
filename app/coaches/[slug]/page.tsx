@@ -25,22 +25,22 @@ export default async function CoachDetailPage({
         </Link>
 
         <div className="mt-6 grid sm:grid-cols-[220px_1fr] gap-8 items-start">
-          <div className="w-full aspect-square rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
+          <div className="font-caption w-full aspect-square rounded-2xl bg-sage/20 border border-sage/40 flex items-center justify-center text-center text-evergreen text-sm p-4">
             [ Photo of {coach.name} goes here — see Brand Guidelines §08, Photography Asset
             Library ]
           </div>
 
           <div>
             {coach.isFounder && (
-              <span className="text-xs font-bold uppercase tracking-wide text-vitality-orange">
+              <span className="font-section-header text-xs uppercase tracking-wide text-vitality-orange">
                 Founder
               </span>
             )}
-            <h1 className="font-display text-4xl mt-1 mb-1">{coach.name}</h1>
-            <p className="text-lg text-evergreen font-semibold mb-4">{coach.title}</p>
+            <h1 className="text-4xl mt-1 mb-1">{coach.name}</h1>
+            <p className="font-section-header text-lg text-evergreen mb-4">{coach.title}</p>
 
             {!coach.active && (
-              <p className="inline-block text-xs font-semibold uppercase tracking-wide bg-tan/25 text-charcoal border border-tan/60 rounded-full px-3 py-1 mb-4">
+              <p className="font-caption inline-block text-xs uppercase tracking-wide bg-tan/25 text-charcoal border border-tan/60 rounded-full px-3 py-1 mb-4">
                 Joining the teaching roster soon
               </p>
             )}
@@ -50,7 +50,7 @@ export default async function CoachDetailPage({
                 {coach.credentials.map((c) => (
                   <li
                     key={c}
-                    className="text-xs font-semibold bg-evergreen/10 text-evergreen border border-evergreen/30 rounded-full px-3 py-1"
+                    className="font-caption text-xs bg-evergreen/10 text-evergreen border border-evergreen/30 rounded-full px-3 py-1"
                   >
                     {c}
                   </li>
