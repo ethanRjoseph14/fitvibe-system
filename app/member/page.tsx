@@ -2,7 +2,7 @@ import NavBar from "@/components/NavBar";
 import { db } from "@/db/client";
 import { members, creditPacks, accessCredentials, bookings, classSessions } from "@/db/schema";
 import { eq, and, gt, desc } from "drizzle-orm";
-import { format } from "date-fns";
+import { formatShortDate, formatDateTime } from "@/lib/tz";
 
 export const dynamic = "force-dynamic";
 
@@ -100,7 +100,7 @@ export default async function MemberPortalPage({
             <p className="text-4xl font-semibold mb-1">{totalCredits} credits</p>
             {nextExpiry && (
               <p className="text-sm text-mid-gray">
-                Next batch expires {format(new Date(nextExpiry), "d MMM yyyy")}
+                Next batch expires {formatShortDate(new Date(nextExpiry))}
               </p>
             )}
           </div>
@@ -112,7 +112,7 @@ export default async function MemberPortalPage({
               {upcoming.map((u) => (
                 <div key={u.booking.id} className="flex justify-between text-sm border-b border-tan/40 pb-2">
                   <span>{u.session.title}</span>
-                  <span className="text-mid-gray">{format(new Date(u.session.startTime), "d MMM, h:mm a")}</span>
+                  <span className="text-mid-gray">{formatDateTime(new Date(u.session.startTime))}</span>
                 </div>
               ))}
             </div>
