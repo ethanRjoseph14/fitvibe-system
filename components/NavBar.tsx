@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 
 const links = [
   { href: "/about", label: "About" },
@@ -13,8 +14,8 @@ export default function NavBar() {
   return (
     <header className="border-b border-tan/60 bg-warm-beige/95 backdrop-blur sticky top-0 z-10">
       <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-display text-2xl text-charcoal tracking-wide">
-          Fit<span className="text-vitality-orange">vibe</span>
+        <Link href="/" className="text-2xl tracking-wide">
+          <Wordmark />
         </Link>
         <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-medium">
           {links.map((l) => (
