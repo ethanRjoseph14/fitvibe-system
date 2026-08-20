@@ -48,7 +48,7 @@ export default async function MemberPortalPage({
       <div className="min-h-screen bg-warm-beige text-charcoal">
         <NavBar />
         <section className="mx-auto max-w-md px-6 py-24">
-          <h1 className="font-display text-3xl mb-2">Member Portal</h1>
+          <h1 className="text-3xl mb-2">Member Portal</h1>
           <p className="text-charcoal/70 mb-8">
             Prototype login — enter the email you registered with. (Demo data: try{" "}
             <code className="text-evergreen">siti.aminah@example.com</code>.) Production
@@ -92,11 +92,11 @@ export default async function MemberPortalPage({
       <NavBar />
       <section className="mx-auto max-w-4xl px-6 py-12 grid md:grid-cols-[1fr_320px] gap-8">
         <div>
-          <h1 className="font-display text-3xl mb-1">Welcome back, {member.fullName.split(" ")[0]}</h1>
+          <h1 className="text-3xl mb-1">Welcome back, {member.fullName.split(" ")[0]}</h1>
           <p className="text-charcoal/60 mb-8 capitalize">Status: {member.status}</p>
 
           <div className="rounded-2xl bg-off-white border border-tan/60 p-6 mb-6">
-            <h2 className="font-display text-lg text-evergreen mb-1">Credit Balance</h2>
+            <h2 className="text-lg text-evergreen mb-1">Credit Balance</h2>
             <p className="text-4xl font-semibold mb-1">{totalCredits} credits</p>
             {nextExpiry && (
               <p className="text-sm text-mid-gray">
@@ -106,7 +106,7 @@ export default async function MemberPortalPage({
           </div>
 
           <div className="rounded-2xl bg-off-white border border-tan/60 p-6">
-            <h2 className="font-display text-lg text-evergreen mb-3">Upcoming Bookings</h2>
+            <h2 className="text-lg text-evergreen mb-3">Upcoming Bookings</h2>
             {upcoming.length === 0 && <p className="text-charcoal/60">No upcoming bookings yet.</p>}
             <div className="space-y-2">
               {upcoming.map((u) => (
@@ -122,8 +122,8 @@ export default async function MemberPortalPage({
         {/* Digital membership card */}
         <div>
           <div className="rounded-2xl bg-charcoal text-off-white p-6 sticky top-24">
-            <p className="text-xs uppercase tracking-widest text-warm-amber mb-1">Fitvibe Member</p>
-            <h3 className="font-display text-xl mb-4">{member.fullName}</h3>
+            <p className="font-section-header text-xs uppercase tracking-widest text-warm-amber mb-1">Fitvibe Member</p>
+            <h3 className="text-xl mb-4">{member.fullName}</h3>
             {credential ? (
               <>
                 <img
@@ -131,12 +131,12 @@ export default async function MemberPortalPage({
                   alt="Membership QR code"
                   className="rounded-xl bg-warm-beige w-full mb-3"
                 />
-                <p className="text-xs text-off-white/60 text-center">
+                <p className="font-caption text-xs text-off-white/60 text-center">
                   Show this at the door scanner for entry
                 </p>
               </>
             ) : (
-              <p className="text-sm text-off-white/70">No access credential issued yet — see front desk.</p>
+              <p className="font-caption text-sm text-off-white/70">No access credential issued yet — see front desk.</p>
             )}
           </div>
         </div>
