@@ -13,6 +13,8 @@ export type Coach = {
   active: boolean;
   bio: string;
   credentials?: string[];
+  /** Path under /public to this coach's real headshot, once available. */
+  photo?: string;
 };
 
 export const coaches: Coach[] = [
@@ -22,6 +24,7 @@ export const coaches: Coach[] = [
     title: "Founder & Movement Specialist",
     isFounder: true,
     active: true,
+    photo: "/images/coaches/ethan-joseph.webp",
     bio: "Ethan founded Fitvibe to build the space he wished existed: a specialist movement centre where adults 50+ and people managing chronic conditions are trained with the same rigor as any elite athlete, and treated with the dignity of a person first. He created The ForEva Method — Fitvibe's assessment-led training framework — and personally teaches the majority of classes during Fitvibe's first year. [Eva note: this is a starting draft — replace with your real background, certifications, and the fuller story of why you started Fitvibe. The ForEva Method's name carries personal meaning worth telling here too, whenever you're ready to share it.]",
     credentials: ["Founder, Fitvibe", "Creator, The ForEva Method"],
   },
@@ -30,6 +33,7 @@ export const coaches: Coach[] = [
     name: "Anne Nikko",
     title: "Coach",
     active: true,
+    photo: "/images/coaches/anne-nikko.webp",
     bio: "[Add Coach Anne's background, certifications, and coaching specialties here.]",
   },
   {
@@ -37,6 +41,7 @@ export const coaches: Coach[] = [
     name: "Chan",
     title: "Coach",
     active: true,
+    photo: "/images/coaches/chan.webp",
     bio: "[Add Coach Chan's background, certifications, and coaching specialties here.]",
   },
   {
