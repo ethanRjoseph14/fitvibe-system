@@ -42,8 +42,8 @@ export default function NavBar() {
               </svg>
             )}
           </button>
-          <Link href="/" className="text-2xl tracking-wide" onClick={() => setOpen(false)}>
-            <Wordmark />
+          <Link href="/" onClick={() => setOpen(false)}>
+            <Wordmark className="h-10 sm:h-11" priority />
           </Link>
         </div>
 
