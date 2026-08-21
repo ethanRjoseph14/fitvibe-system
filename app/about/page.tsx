@@ -16,8 +16,8 @@ export default function AboutPage() {
         <p className="font-section-header text-sm text-evergreen tracking-widest uppercase mb-4">
           Subang Jaya · Specialist Movement Centre
         </p>
-        <h1 className="text-5xl mb-6">
-          <Wordmark />
+        <h1 className="mb-6">
+          <Wordmark className="h-16 sm:h-20" priority />
         </h1>
         <p className="text-lg text-charcoal/80">
           Fitvibe is not a gym. It&apos;s a specialist movement centre built for adults 40+
