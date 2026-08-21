@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Raleway:ital,wght@0,500;0,600;0,800;1,200&family=Sometype+Mono:wght@400;500;700&family=Liter&display=swap");
 @import "tailwindcss";
 
 /* Fitvibe Brand Identity — 20 Aug 2026 update. Vitality Orange stays the
@@ -47,10 +46,14 @@
        Caption                   -> Liter
      Role -> weight/style is baked into each .font-* class below (not just
      family), so applying a role class always gets the correct weight. */
-  --font-caprasimo: "Caprasimo", "Playfair Display", serif;
-  --font-raleway: "Raleway", sans-serif;
-  --font-sometype-mono: "Sometype Mono", ui-monospace, monospace;
-  --font-liter: "Liter", sans-serif;
+  /* Each references the CSS variable next/font/google generates in
+     app/layout.tsx (self-hosted, build-time — see the NOTE there), with the
+     original Google Fonts name kept as a fallback in case that variable is
+     ever unavailable (e.g. a component rendered outside the root layout). */
+  --font-caprasimo: var(--nf-caprasimo), "Caprasimo", "Playfair Display", serif;
+  --font-raleway: var(--nf-raleway), "Raleway", sans-serif;
+  --font-sometype-mono: var(--nf-sometype-mono), "Sometype Mono", ui-monospace, monospace;
+  --font-liter: var(--nf-liter), "Liter", sans-serif;
 
   --font-title: var(--font-caprasimo);
   --font-subtitle: var(--font-caprasimo);
