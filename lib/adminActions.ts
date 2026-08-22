@@ -1,7 +1,7 @@
 "use server";
 
 import { randomUUID } from "crypto";
-import { eq } from "drizzle-orm";
+import { eq, and, isNull } from "drizzle-orm";
 import { addDays } from "date-fns";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db/client";
@@ -14,6 +14,9 @@ import {
   complaints,
   progressCheckins,
   adminUsers,
+  bookings,
+  accessLogs,
+  accessCredentials,
 } from "@/db/schema";
 import { hashPassword, generateTempPassword } from "@/lib/passwords";
 import { requireAdmin } from "@/lib/dal";
@@ -144,6 +147,49 @@ export async function createMemberWithAssessment(formData: FormData) {
       recordedByAdminId: admin.id,
     });
   }
+
+  revalidatePath("/admin");
+}
+
+// ---------------------------------------------------------------------------
+// Delete a member — permanently removes their record and everything tied
+// only to them (bookings, credit packs, payments, access credentials/logs,
+// progress check-ins). Meant for cleaning up test/dummy accounts, not
+// routine offboarding of a real member — there's no undo. Use the member's
+// `status` field (frozen/suspended/expired) for a real ex-member instead of
+// deleting their history. Complaints are kept but detached from the member
+// record (memberId cleared, name preserved as free text) since a complaint
+// can still matter after the member record is gone.
+// ---------------------------------------------------------------------------
+export async function deleteMember(formData: FormData) {
+  await requireAdmin();
+  const memberId = formData.get("memberId") as string;
+  if (!memberId) return;
+
+  await db.transaction(async (tx) => {
+    const [member] = await tx.select().from(members).where(eq(members.id, memberId)).limit(1);
+    if (!member) return;
+
+    await tx.delete(bookings).where(eq(bookings.memberId, memberId));
+    await tx.delete(progressCheckins).where(eq(progressCheckins.memberId, memberId));
+    await tx.delete(accessLogs).where(eq(accessLogs.memberId, memberId));
+    await tx.delete(accessCredentials).where(eq(accessCredentials.memberId, memberId));
+    await tx.delete(creditPacks).where(eq(creditPacks.memberId, memberId));
+    await tx.delete(payments).where(eq(payments.memberId, memberId));
+
+    // Detach complaints rather than deleting them — fill in the free-text
+    // name first for any that don't already have one, then clear memberId.
+    await tx
+      .update(complaints)
+      .set({ memberId: null, memberNameFreeText: member.fullName })
+      .where(and(eq(complaints.memberId, memberId), isNull(complaints.memberNameFreeText)));
+    await tx
+      .update(complaints)
+      .set({ memberId: null })
+      .where(eq(complaints.memberId, memberId));
+
+    await tx.delete(members).where(eq(members.id, memberId));
+  });
 
   revalidatePath("/admin");
 }
