@@ -1,5 +1,6 @@
 import NavBar from "@/components/NavBar";
 import ResetPasswordButton from "@/components/ResetPasswordButton";
+import CreateTeamAccountForm from "@/components/CreateTeamAccountForm";
 import { requireAdmin } from "@/lib/dal";
 import { db } from "@/db/client";
 import {
@@ -11,6 +12,7 @@ import {
   classSessions,
   bookings,
   complaints,
+  adminUsers,
 } from "@/db/schema";
 import { eq, desc, gt, and, inArray } from "drizzle-orm";
 import { formatDateTime, formatShortDate } from "@/lib/tz";
@@ -22,6 +24,7 @@ import {
   cancelClassSession,
   logComplaint,
   resolveComplaint,
+  updateAdminRole,
 } from "@/lib/adminActions";
 
 export const dynamic = "force-dynamic";
@@ -55,6 +58,8 @@ async function getAdminData() {
       .limit(60),
     db.select().from(complaints).orderBy(desc(complaints.submittedAt)),
   ]);
+
+  const teamAccounts = await db.select().from(adminUsers).orderBy(adminUsers.name);
 
   // Per-member computed access: credits remaining + real validity window,
   // derived live from credit packs rather than the admin-set `status` field
@@ -117,6 +122,7 @@ async function getAdminData() {
     upcomingClasses,
     bookedCountByClass,
     allComplaints,
+    teamAccounts,
   };
 }
 
@@ -149,8 +155,10 @@ export default async function AdminPage() {
     upcomingClasses,
     bookedCountByClass,
     allComplaints,
+    teamAccounts,
   } = data;
 
+  const isOwner = admin.role === "owner";
   const openComplaints = allComplaints.filter((c) => c.status === "open");
   const resolvedComplaints = allComplaints.filter((c) => c.status === "resolved");
 
@@ -172,18 +180,69 @@ export default async function AdminPage() {
           </form>
         </div>
 
-        {/* Business snapshot */}
-        <div className="mb-10">
-          <h2 className="text-xl text-evergreen mb-3">Business Snapshot</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <SnapshotCard label="Revenue (all-time)" value={`RM ${totalRevenue.toLocaleString()}`} />
-            <SnapshotCard label="Revenue (this month)" value={`RM ${revenueThisMonth.toLocaleString()}`} />
-            <SnapshotCard label="Credits sold (this month)" value={`${creditsSoldThisMonth}`} />
-            <SnapshotCard label="Members with active access" value={`${activeAccessCount}`} sub={`of ${allMembers.length} total`} />
-            <SnapshotCard label="Expiring within 7 days" value={`${expiringSoonCount}`} />
-            <SnapshotCard label="Access expired" value={`${expiredCount}`} />
+        {/* Business snapshot — owner only */}
+        {isOwner && (
+          <div className="mb-10">
+            <h2 className="text-xl text-evergreen mb-3">Business Snapshot</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <SnapshotCard label="Revenue (all-time)" value={`RM ${totalRevenue.toLocaleString()}`} />
+              <SnapshotCard label="Revenue (this month)" value={`RM ${revenueThisMonth.toLocaleString()}`} />
+              <SnapshotCard label="Credits sold (this month)" value={`${creditsSoldThisMonth}`} />
+              <SnapshotCard label="Members with active access" value={`${activeAccessCount}`} sub={`of ${allMembers.length} total`} />
+              <SnapshotCard label="Expiring within 7 days" value={`${expiringSoonCount}`} />
+              <SnapshotCard label="Access expired" value={`${expiredCount}`} />
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Team accounts — owner only */}
+        {isOwner && (
+          <div className="mb-10">
+            <h2 className="text-xl text-evergreen mb-3">Team Accounts</h2>
+            <div className="overflow-x-auto rounded-xl border border-tan/60 bg-off-white mb-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left border-b border-tan/60 text-mid-gray">
+                    <th className="p-3">Name</th>
+                    <th className="p-3">Email</th>
+                    <th className="p-3">Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teamAccounts.map((t) => (
+                    <tr key={t.id} className="border-b border-tan/30 last:border-0">
+                      <td className="p-3 font-medium">{t.name}</td>
+                      <td className="p-3 text-mid-gray">{t.email}</td>
+                      <td className="p-3">
+                        {t.role === "owner" ? (
+                          <span className="capitalize font-semibold">{t.role}</span>
+                        ) : (
+                          <form action={updateAdminRole} className="flex items-center gap-2">
+                            <input type="hidden" name="adminId" value={t.id} />
+                            <select
+                              name="role"
+                              defaultValue={t.role}
+                              className="rounded-full border border-tan px-2 py-1 text-xs bg-warm-beige"
+                            >
+                              <option value="manager">Manager</option>
+                              <option value="admin">Admin</option>
+                              <option value="staff">Staff</option>
+                            </select>
+                            <button className="text-xs font-semibold text-evergreen hover:underline">Save</button>
+                          </form>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-mid-gray mb-2">
+              A manager can do everything here except manage team accounts or see the Business Snapshot above.
+            </p>
+            <CreateTeamAccountForm />
+          </div>
+        )}
 
         {/* Pending payments */}
         <div className="mb-10">
