@@ -12,6 +12,8 @@ import {
   members,
   classSessions,
   complaints,
+  progressCheckins,
+  adminUsers,
 } from "@/db/schema";
 import { hashPassword, generateTempPassword } from "@/lib/passwords";
 import { requireAdmin } from "@/lib/dal";
@@ -75,6 +77,75 @@ export async function resetMemberPassword(
   revalidatePath("/admin");
 
   return { password: tempPassword, memberName, error: null };
+}
+
+// ---------------------------------------------------------------------------
+// New member intake — for after an in-person assessment. Creates the member
+// record and, if any assessment fields were filled in, logs it as their
+// initial_assessment check-in in the same step (so it shows up immediately
+// on the member's own portal page under "Your Progress").
+// ---------------------------------------------------------------------------
+export async function createMemberWithAssessment(formData: FormData) {
+  const admin = await requireAdmin();
+
+  const fullName = formData.get("fullName") as string;
+  const email = (formData.get("email") as string)?.trim().toLowerCase();
+  const phone = formData.get("phone") as string;
+  if (!fullName || !email || !phone) return;
+
+  const dob = (formData.get("dob") as string) || null;
+  const gender = (formData.get("gender") as string) || null;
+  const emergencyContactName = (formData.get("emergencyContactName") as string) || null;
+  const emergencyContactPhone = (formData.get("emergencyContactPhone") as string) || null;
+  const medicalNotes = (formData.get("medicalNotes") as string) || null;
+  const source = (formData.get("source") as string) || "Front desk intake";
+  const waiverSigned = formData.get("waiverSigned") === "on";
+  const pdpaConsent = formData.get("pdpaConsent") === "on";
+
+  const memberId = randomUUID();
+  const now = new Date();
+
+  await db.insert(members).values({
+    id: memberId,
+    fullName,
+    email,
+    phone,
+    dob,
+    gender,
+    emergencyContactName,
+    emergencyContactPhone,
+    medicalNotes,
+    chronicConditionFlags: "[]",
+    waiverSignedAt: waiverSigned ? now : null,
+    pdpaConsentAt: pdpaConsent ? now : null,
+    status: "active",
+    source,
+  });
+
+  const weightKgRaw = formData.get("weightKg") as string;
+  const mobilityNotes = (formData.get("mobilityNotes") as string) || null;
+  const strengthNotes = (formData.get("strengthNotes") as string) || null;
+  const painLevelRaw = formData.get("painLevel") as string;
+  const coachNotes = (formData.get("coachNotes") as string) || null;
+
+  const hasAssessmentData =
+    weightKgRaw || mobilityNotes || strengthNotes || painLevelRaw || coachNotes;
+
+  if (hasAssessmentData) {
+    await db.insert(progressCheckins).values({
+      id: randomUUID(),
+      memberId,
+      type: "initial_assessment",
+      weightKg: weightKgRaw ? Number(weightKgRaw) : null,
+      mobilityNotes,
+      strengthNotes,
+      painLevel: painLevelRaw ? Number(painLevelRaw) : null,
+      coachNotes,
+      recordedByAdminId: admin.id,
+    });
+  }
+
+  revalidatePath("/admin");
 }
 
 // ---------------------------------------------------------------------------
@@ -149,5 +220,68 @@ export async function resolveComplaint(formData: FormData) {
     .update(complaints)
     .set({ status: "resolved", resolvedAt: new Date() })
     .where(eq(complaints.id, complaintId));
+  revalidatePath("/admin");
+}
+
+// ---------------------------------------------------------------------------
+// Team accounts — owner-only. A manager can do everything else in the admin
+// panel; only the owner can create accounts or change roles (checked here
+// server-side, not just hidden in the UI — a client could otherwise submit
+// straight to the action).
+// ---------------------------------------------------------------------------
+export type CreateTeamAccountState = {
+  password: string | null;
+  accountName: string | null;
+  error: string | null;
+};
+
+export async function createTeamAccount(
+  _prevState: CreateTeamAccountState,
+  formData: FormData
+): Promise<CreateTeamAccountState> {
+  const admin = await requireAdmin();
+  if (admin.role !== "owner") {
+    return { password: null, accountName: null, error: "Only the owner can create team accounts." };
+  }
+
+  const name = formData.get("name") as string;
+  const email = (formData.get("email") as string)?.trim().toLowerCase();
+  const role = formData.get("role") as string;
+  if (!name || !email || !["admin", "manager", "staff"].includes(role)) {
+    return { password: null, accountName: null, error: "Missing or invalid fields." };
+  }
+
+  const tempPassword = generateTempPassword();
+  const passwordHash = await hashPassword(tempPassword);
+
+  await db.insert(adminUsers).values({
+    id: randomUUID(),
+    name,
+    email,
+    passwordHash,
+    role: role as "admin" | "manager" | "staff",
+  });
+
+  revalidatePath("/admin");
+  return { password: tempPassword, accountName: name, error: null };
+}
+
+export async function updateAdminRole(formData: FormData) {
+  const admin = await requireAdmin();
+  if (admin.role !== "owner") return;
+
+  const targetAdminId = formData.get("adminId") as string;
+  const role = formData.get("role") as string;
+  if (!targetAdminId || !["admin", "manager", "staff"].includes(role)) return;
+  // Don't let the owner change their own role from this form — avoids an
+  // accidental self-lockout. Role changes for the owner account itself
+  // (or granting a second owner) stay a deliberate Supabase SQL action.
+  if (targetAdminId === admin.id) return;
+
+  await db
+    .update(adminUsers)
+    .set({ role: role as "admin" | "manager" | "staff" })
+    .where(eq(adminUsers.id, targetAdminId));
+
   revalidatePath("/admin");
 }
