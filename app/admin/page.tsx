@@ -17,6 +17,7 @@ import { formatDateTime, formatShortDate } from "@/lib/tz";
 import { adminLogout } from "@/lib/authActions";
 import {
   approvePayment,
+  createMemberWithAssessment,
   createClassSession,
   cancelClassSession,
   logComplaint,
@@ -221,7 +222,92 @@ export default async function AdminPage() {
 
         {/* Members */}
         <div className="mb-10">
-          <h2 className="text-xl text-evergreen mb-3">Members ({allMembers.length})</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl text-evergreen">Members ({allMembers.length})</h2>
+          </div>
+
+          <details className="rounded-xl bg-off-white border border-tan/60 p-4 mb-4">
+            <summary className="cursor-pointer font-semibold text-evergreen">
+              + Add new member (after assessment)
+            </summary>
+            <form action={createMemberWithAssessment} className="mt-4 grid sm:grid-cols-2 gap-3">
+              <p className="sm:col-span-2 text-xs text-mid-gray -mt-1">
+                Member details
+              </p>
+              <label className="text-xs text-mid-gray">
+                Full name
+                <input name="fullName" required className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Email
+                <input name="email" type="email" required className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Phone
+                <input name="phone" required className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Date of birth
+                <input name="dob" type="date" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Gender
+                <input name="gender" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                How they found us
+                <input name="source" placeholder="Walk-in, referral, etc." className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Emergency contact name
+                <input name="emergencyContactName" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Emergency contact phone
+                <input name="emergencyContactPhone" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray sm:col-span-2">
+                Medical notes / chronic conditions
+                <textarea name="medicalNotes" rows={2} className="mt-1 w-full rounded-2xl border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="flex items-center gap-2 text-xs text-mid-gray">
+                <input type="checkbox" name="waiverSigned" />
+                Waiver signed in person
+              </label>
+              <label className="flex items-center gap-2 text-xs text-mid-gray">
+                <input type="checkbox" name="pdpaConsent" />
+                PDPA consent given
+              </label>
+
+              <p className="sm:col-span-2 text-xs text-mid-gray mt-2 -mb-1 border-t border-tan/40 pt-3">
+                Initial assessment (optional — leave blank to add later)
+              </p>
+              <label className="text-xs text-mid-gray">
+                Weight (kg)
+                <input name="weightKg" type="number" step="0.1" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Pain level (0–10)
+                <input name="painLevel" type="number" min="0" max="10" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Mobility notes
+                <input name="mobilityNotes" placeholder="Sit-to-stand: 9 reps/30s" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray">
+                Strength notes
+                <input name="strengthNotes" placeholder="Leg press: 25kg x8" className="mt-1 w-full rounded-full border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+              <label className="text-xs text-mid-gray sm:col-span-2">
+                Coach notes
+                <textarea name="coachNotes" rows={2} className="mt-1 w-full rounded-2xl border border-tan px-3 py-1.5 text-sm bg-warm-beige" />
+              </label>
+
+              <button className="rounded-full bg-vitality-orange text-charcoal px-5 py-2 text-sm font-semibold hover:bg-warm-amber transition-colors sm:col-span-2 sm:w-fit">
+                Add member
+              </button>
+            </form>
+          </details>
           <div className="overflow-x-auto rounded-xl border border-tan/60 bg-off-white">
             <table className="w-full text-sm">
               <thead>
