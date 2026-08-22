@@ -4,12 +4,28 @@ import { eq, and, gt } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 /**
- * Door access decision engine.
+ * Door / token access decision engine.
  *
- * This is the single function a QR scanner / RFID reader / keypad controller
- * calls (via POST /api/access/verify) to decide whether to unlock the door.
- * It is the software half of the "Door access ↔ membership/credit
- * integration" deliverable in the Systems Tracker.
+ * UPDATED 22 Aug 2026 — per Ethan's decision, the physical token/card system
+ * is now a SEPARATE, unlinked vendor system: front-desk staff activate a
+ * member's token duration by hand (in whatever software comes with the
+ * chosen door hardware) at the same time they activate credits here, rather
+ * than the door hardware calling this app live. This function and the
+ * /api/access/verify endpoint are kept as this app's OWN record of
+ * entry/token validity (so the member portal and admin panel can show
+ * "token valid until X" and keep an access history) — they are no longer
+ * assumed to be the live gatekeeper a physical reader calls. If a future
+ * vendor's hardware CAN call out to an HTTPS endpoint, this is still the
+ * right integration point; just don't assume it's wired up yet.
+ *
+ * Gym entry vs. class access — per Ethan's rule (22 Aug 2026):
+ * - Entry to the gym itself only requires the member to be within an active,
+ *   unexpired validity window (i.e. they haven't lapsed without renewing).
+ *   It does NOT require any credits remaining.
+ * - Booking/attending a CLASS additionally requires credits remaining — that
+ *   check belongs in the booking flow, not here.
+ * This mirrors the real intent: running out of credits should push someone
+ * to renew, not lock them out of the building entirely.
  *
  * ⚠️ HARDWARE FAIL-SAFE — NOT ENFORCEABLE IN SOFTWARE:
  * The discussion brief requires doors to fail UNLOCKED on power/system
@@ -27,7 +43,7 @@ export type AccessResult = {
     | "unknown_credential"
     | "credential_revoked"
     | "member_not_active"
-    | "zero_credit"
+    | "validity_expired"
     | "manual_override";
   memberName?: string;
 };
@@ -69,7 +85,12 @@ export async function verifyAccess(
     return { granted: true, reason: "active", memberName: member.fullName };
   }
 
-  // Entry requires at least one active, unexpired pack with remaining credit.
+  // Entry requires the member to be inside an active, unexpired validity
+  // window — i.e. at least one credit pack that hasn't expired yet.
+  // Deliberately NOT checking creditsRemaining here: a member who has used
+  // up all their session credits can still walk in and use the gym: they
+  // just can't book/attend a class until they top up. That credit check
+  // belongs in the class-booking flow, not door/token entry.
   const now = new Date();
   const [pack] = await db
     .select()
@@ -78,15 +99,14 @@ export async function verifyAccess(
       and(
         eq(creditPacks.memberId, member.id),
         eq(creditPacks.status, "active"),
-        gt(creditPacks.creditsRemaining, 0),
         gt(creditPacks.expiresAt, now)
       )
     )
     .limit(1);
 
   if (!pack) {
-    await logAttempt(credential.id, credential.memberId, direction, "denied", "zero_credit");
-    return { granted: false, reason: "zero_credit" };
+    await logAttempt(credential.id, credential.memberId, direction, "denied", "validity_expired");
+    return { granted: false, reason: "validity_expired" };
   }
 
   await logAttempt(credential.id, credential.memberId, direction, "granted", "active");
