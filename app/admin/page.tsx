@@ -1,5 +1,6 @@
 import NavBar from "@/components/NavBar";
 import ResetPasswordButton from "@/components/ResetPasswordButton";
+import DeleteMemberButton from "@/components/DeleteMemberButton";
 import CreateTeamAccountForm from "@/components/CreateTeamAccountForm";
 import { requireAdmin } from "@/lib/dal";
 import { db } from "@/db/client";
@@ -377,6 +378,7 @@ export default async function AdminPage() {
                   <th className="p-3">Credits</th>
                   <th className="p-3">Source</th>
                   <th className="p-3">Login</th>
+                  <th className="p-3"></th>
                 </tr>
               </thead>
               <tbody>
@@ -401,6 +403,9 @@ export default async function AdminPage() {
                       <td className="p-3 text-mid-gray">{m.source}</td>
                       <td className="p-3">
                         <ResetPasswordButton memberId={m.id} memberName={m.fullName} />
+                      </td>
+                      <td className="p-3">
+                        <DeleteMemberButton memberId={m.id} memberName={m.fullName} />
                       </td>
                     </tr>
                   );
