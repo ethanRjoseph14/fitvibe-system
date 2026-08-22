@@ -55,6 +55,8 @@ export const credentialTypeEnum = pgEnum("credential_type", ["qr", "rfid", "pin"
 export const credentialStatusEnum = pgEnum("credential_status", ["active", "revoked", "lost"]);
 export const accessDirectionEnum = pgEnum("access_direction", ["entry", "exit"]);
 export const accessResultEnum = pgEnum("access_result", ["granted", "denied"]);
+export const complaintStatusEnum = pgEnum("complaint_status", ["open", "resolved"]);
+export const checkinTypeEnum = pgEnum("checkin_type", ["initial_assessment", "monthly_checkin"]);
 
 // ---------------------------------------------------------------------------
 // Staff / admin users (front desk + Ethan)
@@ -81,6 +83,12 @@ export const members = pgTable("members", {
 
   emergencyContactName: text("emergency_contact_name"),
   emergencyContactPhone: text("emergency_contact_phone"),
+
+  // Member portal login. Nullable — front-desk staff set/reset this from the
+  // admin panel (no self-serve signup or email-based password reset yet,
+  // since there's no email-sending set up). A member with no password set
+  // sees "ask the front desk" on the login page rather than a broken form.
+  passwordHash: text("password_hash"),
 
   // PDPA-sensitive: chronic condition / medical flags captured at registration.
   // Stored as free text + structured flags; access restricted to admin views only.
@@ -218,5 +226,62 @@ export const accessLogs = pgTable("access_logs", {
   timestamp: timestamp("timestamp", { withTimezone: true }).notNull().default(sql`now()`),
   direction: accessDirectionEnum("direction").notNull().default("entry"),
   result: accessResultEnum("result").notNull(),
-  reason: text("reason"), // "active", "expired", "suspended", "zero_credit", "unknown_credential", "manual_override"
+  reason: text("reason"), // "active", "validity_expired", "member_not_active", "unknown_credential", "credential_revoked", "manual_override"
 });
+
+// ---------------------------------------------------------------------------
+// Complaints — a simple log (per Ethan's call: no ticket/status workflow
+// beyond open/resolved). memberId is nullable so front desk can log a
+// complaint before it's tied to a specific member record, or on behalf of a
+// prospect/visitor.
+// ---------------------------------------------------------------------------
+export const complaints = pgTable("complaints", {
+  id: text("id").primaryKey(),
+  memberId: text("member_id").references(() => members.id),
+  memberNameFreeText: text("member_name_free_text"), // fallback display name if not linked to a member record
+  subject: text("subject").notNull(),
+  description: text("description").notNull(),
+  status: complaintStatusEnum("status").notNull().default("open"),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }).notNull().default(sql`now()`),
+  loggedByAdminId: text("logged_by_admin_id").references(() => adminUsers.id),
+  adminNotes: text("admin_notes"),
+  resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+});
+
+// ---------------------------------------------------------------------------
+// Progress check-ins — first assessment + ~monthly follow-ups, shown as a
+// compact comparison on the member's own portal page (per Ethan's "enough
+// info but not too lengthy" brief). Recorded by a coach/admin, not
+// self-reported by the member (painLevel is the one self-reported figure,
+// captured by the coach during the check-in).
+// ---------------------------------------------------------------------------
+export const progressCheckins = pgTable("progress_checkins", {
+  id: text("id").primaryKey(),
+  memberId: text("member_id")
+    .notNull()
+    .references(() => members.id),
+  type: checkinTypeEnum("type").notNull(),
+  recordedAt: timestamp("recorded_at", { withTimezone: true }).notNull().default(sql`now()`),
+  weightKg: real("weight_kg"),
+  restingHeartRate: integer("resting_heart_rate"),
+  mobilityNotes: text("mobility_notes"), // short free text, e.g. "Sit-to-stand: 12 reps/30s"
+  strengthNotes: text("strength_notes"), // short free text, e.g. "Leg press: 40kg x10"
+  painLevel: integer("pain_level"), // self-reported 0–10
+  coachNotes: text("coach_notes"),
+  recordedByAdminId: text("recorded_by_admin_id").references(() => adminUsers.id),
+});
+
+// ---------------------------------------------------------------------------
+// Row types — inferred from the table definitions above, so they always
+// stay in sync with the schema. Used by lib/dal.ts and anywhere else that
+// needs a typed row rather than raw query results.
+// ---------------------------------------------------------------------------
+export type Member = typeof members.$inferSelect;
+export type AdminUser = typeof adminUsers.$inferSelect;
+export type MembershipPlan = typeof membershipPlans.$inferSelect;
+export type CreditPack = typeof creditPacks.$inferSelect;
+export type Payment = typeof payments.$inferSelect;
+export type ClassSession = typeof classSessions.$inferSelect;
+export type Booking = typeof bookings.$inferSelect;
+export type Complaint = typeof complaints.$inferSelect;
+export type ProgressCheckin = typeof progressCheckins.$inferSelect;
