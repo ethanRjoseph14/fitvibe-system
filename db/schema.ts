@@ -23,7 +23,7 @@ import { sql } from "drizzle-orm";
  * on 19 Aug 2026 once Ethan set up a live Supabase project.
  */
 
-export const adminRoleEnum = pgEnum("admin_role", ["owner", "admin", "staff"]);
+export const adminRoleEnum = pgEnum("admin_role", ["owner", "admin", "manager", "staff"]);
 export const memberStatusEnum = pgEnum("member_status", [
   "prospect",
   "active",
